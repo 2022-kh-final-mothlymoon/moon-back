@@ -7,11 +7,13 @@
 	<insert id="memberRegister" parameterType="kh.sellermoon.member.vo.MemberVO">
 		INSERT INTO TB_MEMBER( member_no, member_address, member_method,
 		                        member_level, member_password, member_name, member_phone,
-		                        member_birth, member_zipcode, member_email, member_date )
+		                        member_birth, member_zipcode, member_email, member_date
+		                        ,member_address_detail )
 				VALUES ( #{member_no},#{member_address},'이메일'
 						,0,#{member_password},#{member_name},#{member_phone}
 						,#{member_birth},#{member_zipcode},#{member_email}
-						,TO_CHAR(SYSDATE, 'YYYY-MM-DD HH:MM:SS') )
+						,TO_CHAR(SYSDATE, 'YYYY-MM-DD HH:MM:SS')
+						,#{member_address_detail} )
 	</insert>
 	
 	<!-- 회원가입시 적립금 1000원 지급 -->

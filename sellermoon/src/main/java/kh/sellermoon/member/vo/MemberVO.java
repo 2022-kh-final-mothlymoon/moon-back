@@ -11,10 +11,11 @@ public class MemberVO {
 	  private int    member_level    = 0; 
 	  private String member_password = ""; 
 	  private String member_name     = ""; 
-	  private int    member_phone    = 0; 
+	  private String member_phone    = ""; 
 	  private String member_birth    = ""; 
-	  private int    member_zipcode  = 0; 
+	  private String member_zipcode  = ""; 
 	  private String member_email    = ""; 
-	  private String member_date    = ""; 
+	  private String member_date    = "";
+	  private String member_address_detail    = "";
 
 }
