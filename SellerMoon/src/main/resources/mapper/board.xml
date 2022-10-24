@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kh.mybatis.mapper.boardMapper">
+	<resultMap type="java.util.Map" id="boardMap"></resultMap>
+	<resultMap type="kh.sellermoon.admin.vo.BoardVO" id="boardVO">
+		<id property="board_no" column="board_no" />
+		<result property="member_no" column="member_no"/>
+		<result property="board_title" column="board_title"/>
+		<result property="board_content" column="board_content"/>
+		<result property="board_written_date" column="board_written_date"/>
+		<result property="board_like" column="board_like"/>
+		<result property="board_dislike" column="board_dislike"/>
+		<result property="board_categroy" column="board_category"/>
+		<result property="board_blind" column="board_blind"/>
+		<result property="board_reprot_count" column="board_report_count"/>
+	</resultMap>
+	
+	<select id="boardList" parameterType="java.util.Map" resultType="map">
+		SELECT board_no, board_category, board_title, member_name, board_written_date, board_hit
+    	  FROM tb_community LEFT OUTER JOIN tb_member
+          	ON board_no = board_no
+      ORDER BY board_no DESC
+	</select>
+	
+	<select id="boardDetail" parameterType="map" resultType="map">
+		SELECT board_no, board_category, board_title, board_content, member_name
+			  ,board_written_date, board_hit, board_like, board_dislike
+  		  FROM tb_community LEFT OUTER JOIN tb_member
+  		    ON board_no = board_no
+ 		 WHERE board_no = #{board_no}
+	</select>
+	
+	<delete id="boardDelete" parameterType="map">
+		DELETE FROM tb_community
+              WHERE board_no = #{board_no}
+	</delete>
+	
+	<update id="boardUpdate" parameterType="map">
+		UPDATE tb_community
+           SET board_title = #{board_title}, board_content = #{board_content}
+		 WHERE board_no = #{board_no} AND member_no = #{member_no}
+	</update>
+</mapper>
