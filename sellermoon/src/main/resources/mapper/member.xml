@@ -7,17 +7,18 @@
 	<insert id="memberRegister" parameterType="kh.sellermoon.member.vo.MemberVO">
 		INSERT INTO TB_MEMBER( member_no, member_address, member_method,
 		                        member_level, member_password, member_name, member_phone,
-		                        member_birth, member_zipcode, member_email )
+		                        member_birth, member_zipcode, member_email, member_date )
 				VALUES ( #{member_no},#{member_address},'이메일'
 						,0,#{member_password},#{member_name},#{member_phone}
-						,#{member_birth},#{member_zipcode},#{member_email} )
+						,#{member_birth},#{member_zipcode},#{member_email}
+						,TO_CHAR(SYSDATE, 'YYYY-MM-DD HH:MM:SS') )
 	</insert>
 	
 	<!-- 회원가입시 적립금 1000원 지급 -->
 	<insert id="registerPoint" parameterType="kh.sellermoon.member.vo.PointVO">
 	INSERT INTO TB_POINT(point_no, member_point, point_date, point_used_saved, member_no, point_type)
-					VALUES (SEQ_TB_MEMBER_POINT_NO.NEXTVAL, 1000
-        			,TO_CHAR(SYSTIMESTAMP, 'YYYY-MM-DD HH:MM:SS.FF2'),0,#{member_no},0)
+					VALUES (SEQ_TB_MEMBER_POINT_NO.NEXTVAL, 2000
+        			,TO_CHAR(SYSDATE, 'YYYY-MM-DD HH:MM:SS'),0,#{member_no},0)
 	</insert>
 	
 	<!-- 회원번호 채번 쿼리문 -->

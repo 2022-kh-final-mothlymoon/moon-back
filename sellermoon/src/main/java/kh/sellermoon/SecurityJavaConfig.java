@@ -13,33 +13,36 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @EnableWebSecurity
 public class SecurityJavaConfig {
+
+	@Bean
+	public BCryptPasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+
+	@Bean
+	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+		http.cors().disable()
+			.csrf().disable()
+			.formLogin().disable()
+			.headers().frameOptions().disable();
+
+		return http.build();
+	}
+
+
 	
 	@Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
- 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-     
-    	 http
-         .cors().disable()
-         .csrf().disable()
-         .formLogin().disable()
-         .headers().frameOptions().disable();
-    	 
-    	 return http.build();
-    }
-    
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-            	registry.addMapping("/**").allowCredentials(true)
-                .allowedOrigins("http://localhost:3000")
-        		.allowedMethods(HttpMethod.GET.name(),HttpMethod.POST.name());
-            }
-        };
-    }
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurer() {
+
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/**").allowCredentials(true)
+						.allowedOrigins("http://localhost:3000")
+						.allowedMethods(HttpMethod.GET.name(), HttpMethod.POST.name());
+			}
+		};
+	}
+	 
 }

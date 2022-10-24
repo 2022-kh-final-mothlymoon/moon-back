@@ -15,5 +15,6 @@ public class MemberVO {
 	  private String member_birth    = ""; 
 	  private int    member_zipcode  = 0; 
 	  private String member_email    = ""; 
+	  private String member_date    = ""; 
 
 }
