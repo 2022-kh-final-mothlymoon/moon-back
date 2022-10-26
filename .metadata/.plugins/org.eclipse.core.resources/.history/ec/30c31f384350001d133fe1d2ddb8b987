@@ -1,0 +1,16 @@
+package kh.sellermoon.admin.logic;
+
+import java.util.List;
+import java.util.Map;
+
+import kh.sellermoon.admin.dao.StoreDao;
+
+public class StoreLogic {
+private StoreDao storeDao =null;
+	public List<Map<String, Object>> storeList(Map<String, Object> pMap) {
+		List<Map<String, Object>> storeList = null;
+		storeList = storeDao.storeList(pMap);
+	      return storeList;
+	}
+
+}

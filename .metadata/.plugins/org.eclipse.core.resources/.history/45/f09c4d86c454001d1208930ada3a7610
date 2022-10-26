@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.mapper.amdMapper">
+	<resultMap type="kh.sellermoon.admin.vo.AmdVO" id="amdMap"></resultMap>
+	<select id="amdList" parameterType="map"
+		resultType="java.util.Map">
+		SELECT MD_NO,MD_CONTENT,MD_PRICE,MD_IMAGE,MD_DETAIL_IMAGE
+		,MD_COST,MD_CATEGORY,MD_DISCOUNT,MD_NAME,MD_BRAND,STORE_NO
+		FROM TB_AMD
+		<where>
+			<if test="MD_NO>0">
+				AND MD_NO = #{MD_NO}
+			</if>
+		</where>
+		ORDER BY MD_NO asc
+	</select>
+	<select id="amdDetail" parameterType="map"
+		resultType="java.util.Map">
+		SELECT MD_NO,MD_CONTENT,MD_PRICE,MD_IMAGE,MD_DETAIL_IMAGE
+		,MD_COST,MD_CATEGORY,MD_DISCOUNT,MD_NAME,MD_BRAND,STORE_NO
+		FROM TB_AMD
+		<where>
+			<if test="MD_NO>0">
+				AND MD_NO = #{MD_NO}
+			</if>
+		</where>
+	</select>
+
+	<insert id="amdInsert" parameterType="map">
+		INSERT INTO tb_store(MD_NO,MD_CONTENT,MD_PRICE,MD_IMAGE,MD_DETAIL_IMAGE
+		,MD_COST,MD_CATEGORY,MD_DISCOUNT,MD_NAME,MD_BRAND,STORE_NO)
+		VALUES(MD_NO_SEQ.nextval,#{STORE_CONTACT},#{STORE_MANAGER},#{STORE_MEMO},'Y',#{FIELD},to_char(sysdate,
+		'YYYY-MM-DD'))
+	</insert>
+
+	<update id="amdUpdate" parameterType="map">
+		UPDATE tb_store
+		SET FIELD = #{FIELD}
+		,STORE_MANAGER = #{STORE_MANAGER}
+		,STORE_MEMO = #{STORE_MEMO}
+		,STORE_YN = #{STORE_YN}
+		,STORE_CONTACT = #{STORE_CONTACT}
+		WHERE STORE_NO = #{STORE_NO}
+	</update>
+
+	<delete id="amdDelete" parameterType="map">
+		delete from tb_store
+		where STORE_NO = #{STORE_NO}
+	</delete>
+</mapper>  

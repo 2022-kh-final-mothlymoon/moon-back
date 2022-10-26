@@ -1,0 +1,39 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ page import="java.util.*, kh.sellermoon.admin.vo.StoreVO" %>
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>부서목록</title>
+</head>
+<body>
+부서목록
+<div id="contents">
+    <table>
+        <thead>
+        <tr>
+            <th class="one wide">번호</th>
+            <th class="ten wide">글제목</th>
+            <th class="two wide">작성자</th>
+            <th class="three wide">작성일</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <!-- CONTENTS !-->
+        <tr th:each="store index : ${storeList}">
+            <td>
+                    <span th:text="${store.n_no}"></span>
+            </td>
+
+         
+        </tr>
+        </tbody>
+    </table>
+    
+</div>
+
+</body>
+</html>

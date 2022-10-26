@@ -1,0 +1,33 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page import="java.util.*, kh.sellermoon.admin.vo.StoreVO"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8">
+<title>부서목록</title>
+</head>
+<body>
+	부서목록
+	<c:choose>
+		<c:when test="${empty boardList }">
+			<tr>
+				<td colspan="5" align="center">데이터가 없습니다.</td>
+			</tr>
+		</c:when> 				
+			<c:when test="${!empty boardList}">
+			<c:forEach var="list" items="${storeList}">
+				<tr>
+					<td><c:out value="${store.bid}" /></td>
+					<td><c:out value="${store.title}" /></td>
+					<td><c:out value="${store.reg_id}" /></td>
+					<td><c:out value="${store.view_cnt}" /></td>
+					<td><c:out value="${store.reg_dt}" /></td>
+				</tr>
+			</c:forEach>
+		</c:when>
+	</c:choose>
+
+</body>
+</html>

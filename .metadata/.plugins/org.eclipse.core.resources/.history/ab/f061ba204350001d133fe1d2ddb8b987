@@ -1,0 +1,13 @@
+package kh.sellermoon.admin.logic;
+
+import java.util.List;
+import java.util.Map;
+
+public class StoreLogic {
+
+	public List<Map<String, Object>> storeList(Map<String, Object> pMap) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
