@@ -1,0 +1,42 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%
+int STORE_NO = 0;
+int MD_NO = 0;
+String MD_NAME = "";
+String STORE_CONTACT = "";
+String STORE_MANAGER = "";
+String STORE_MEMO = "";
+String STORE_YN = "";
+String FIELD = "";
+/* 	List<Map<String,Object>> storeList = 
+	(List<Map<String,Object>>)request.getAttribute("storeList");	
+	if(storeList !=null && storeList.size()>0){
+		MD_NAME = storeList.get(0).get("MD_NAME").toString();
+		STORE_CONTACT = storeList.get(0).get("STORE_CONTACT").toString();
+		STORE_MANAGER = storeList.get(0).get("STORE_MANAGER").toString();
+		STORE_YN = storeList.get(0).get("STORE_YN").toString();
+		STORE_MEMO = storeList.get(0).get("STORE_MEMO").toString();
+		FIELD = storeList.get(0).get("FIELD").toString();
+	}  */
+	%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Project detail</h1>
+	<c:forEach var="storeList" items="${storeList}">
+  <tr>
+    <td>${storeList.STORE_NO}</td>
+    <td>${storeList.STORE_CONTACT}</td>
+    <td>${storeList.MD_NO}</td>
+    <td>${storeList.MD_NAME}</td>
+    <td><a href="./read.jsp?STORE_NO=${storeList.STORE_NO}">${storeList.STORE_NO}수정</a> </td>
+    <td><a href="${path}/projectDelete.do?proId=${item.proId}">삭제</a></td>
+  </tr>
+</c:forEach>
+</body>
+</html>

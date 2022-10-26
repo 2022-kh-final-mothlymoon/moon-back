@@ -1,0 +1,68 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+
+<div class="row" style="margin-bottom: 20px; margin-left: 1px;">
+	<div class="col-lg-12">
+		<h1 class="page-header">등록 페이지</h1>
+	</div>
+</div>
+<div class="panel" style="margin-left: 1px;">
+	<div id="contAreaBox">
+		<div class="panel">
+			<div class="panel-body">
+				<form role="form" action="/board/create_action" method="post">
+					<div class="table-responsive" style="text-align: center;">
+						<table id="datatable-scroller"
+							class="table table-bordered tbl_Form">
+							<caption></caption>
+							<colgroup>
+								<col width="250px" />
+								<col />
+							</colgroup>
+							<tbody>
+								<tr>
+									<input type="hidden" id="STORE_NO" name="STORE_NO" value="0">
+									<input type="hidden" id="MD_NO" name="MD_NO" value="1">
+									<th class="active">STORE_CONTACT</th>
+									<td class="form-inline"><input type="text"
+										id="STORE_CONTACT" name="STORE_CONTACT" class="form-control"
+										style="width: 200px" /></td>
+								</tr>
+								<tr>
+									<th class="active">STORE_MANAGER</th>
+									<td class="form-inline"><input type="text"
+										id="STORE_MANAGER" name="STORE_MANAGER" class="form-control"
+										style="width: 200px" /></td>
+								</tr>
+
+
+								<tr>
+									<th class="active">STORE_MEMO</th>
+									<td class="form-inline"><textarea id="STORE_MEMO"
+											name="STORE_MEMO" cols="100" rows="10" class="form-control"></textarea></td>
+								</tr>
+								<tr>
+									<th class="active">STORE_YN</th>
+									<td class="form-inline"><textarea id="STORE_YN"
+											name="STORE_YN" cols="100" rows="10" class="form-control"></textarea></td>
+								</tr>
+								<tr>
+									<th class="active">FIELD</th>
+									<td class="form-inline"><textarea id="FIELD" name="FIELD"
+											cols="100" rows="10" class="form-control"></textarea></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div style="margin-left: 1px;">
+						<button type="submit" class="btn btn-primary">등록</button>
+						<a href="./storeList" class="btn btn-danger">취소</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
