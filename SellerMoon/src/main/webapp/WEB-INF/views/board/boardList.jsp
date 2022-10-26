@@ -34,7 +34,7 @@
 	if(boardList != null || boardList.size() != 0) {
 		for(int i=0; i<boardList.size(); i++) {
 			Map<String, Object> bMap = boardList.get(i);
-			System.out.println(bMap);
+			//System.out.println(bMap);
 %>
 			<tbody>
 				<tr>

@@ -75,4 +75,12 @@ public class BoardController {
 		return "redirect:boardList";
 	}
 	
+	@RequestMapping(value="/boardUpdate")
+	public Object boardUpdate(@RequestParam Map<String, Object> pMap) {
+		logger.info("boardUpdate 호출 성공");
+		int result = 0;
+		result = boardLogic.boardBlind(pMap);
+		return "redirect:boardDetail";
+	}
+	
 }

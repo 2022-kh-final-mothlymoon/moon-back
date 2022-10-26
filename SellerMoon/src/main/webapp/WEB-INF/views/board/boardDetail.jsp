@@ -3,7 +3,7 @@
 <%@ page import="java.util.List, java.util.Map" %>
 
 <%
-	Map<String, Object> boardDetail = (Map)request.getAttribute("boardDetail");
+	Map<String, Object> boardDetail = (Map<String, Object>)request.getAttribute("boardDetail");
 %>
 <!DOCTYPE html>
 <html>

@@ -23,17 +23,16 @@ public class BoardDao {
 	private SqlSessionTemplate sqlSessionTemplate = null;
 	
 	/*
-	 * [[[[[[[[[[ 게시글 전체 조회 ]]]]]]]]]]
+	 * [[[[[[[[[[ 게시글 전체 조회 및 상세 조회 ]]]]]]]]]]
 	 * 
 	 * 조건 1. 커뮤니티 내 회원이 작성한 글의 목록을 보여준다.
 	 * 조건 2. 글 번호, 제목, 작성자, 작성일, 조회수
 	 */
 	public List<Map<String, Object>> boardList(Map<String, Object> pMap) {
-		logger.info("boardList 호출 성공");
+		logger.info("pMap : " + pMap);
 		List<Map<String, Object>> boardList = null;
 		try {
 			boardList = sqlSessionTemplate.selectList("boardList", pMap);
-			logger.info(boardList.toString());
 		} catch (DataAccessException e) {
 			logger.info("Exception : " + e.toString());
 		}
@@ -49,12 +48,10 @@ public class BoardDao {
 	 * 조건 4. 관리자에게서만 삭제 버튼이 보일 수 있도록..
 	 */
 	public Map<String, Object> boardDetail(Map<String, Object> pMap) {
-		logger.info("boardDetail 호출 성공");
+		logger.info("boardDetail_pMap : " + pMap);
 		Map<String, Object> boardDetail = null;
 		try {
 			boardDetail = sqlSessionTemplate.selectOne("boardDetail", pMap);
-			System.out.println(boardDetail);
-			logger.info(boardDetail.toString());
 		} catch(DataAccessException e) {
 			logger.info("Exception : " + e.toString());
 		}
@@ -70,6 +67,17 @@ public class BoardDao {
 		int result = 0;
 		try {
 			result = sqlSessionTemplate.delete("boardDelete", pMap);
+			logger.info("result : " + result);
+		} catch (Exception e) {
+			logger.info("Exception : " + e.toString());
+		}
+		return result;
+	}
+
+	public int boardBlind(Map<String, Object> pMap) {
+		int result = 0;
+		try {
+			result = sqlSessionTemplate.update("boardUpdate", pMap);
 			logger.info("result : " + result);
 		} catch (Exception e) {
 			logger.info("Exception : " + e.toString());

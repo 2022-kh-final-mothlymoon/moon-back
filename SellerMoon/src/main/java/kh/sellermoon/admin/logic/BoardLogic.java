@@ -17,12 +17,7 @@ public class BoardLogic {
 	@Autowired(required = false)
 	private BoardDao boardDao = null;
 
-	/*
-	 * [[[[[[[[[[ 게시글 전체 조회 ]]]]]]]]]]
-	 * 
-	 * 조건 1. 커뮤니티 내 회원이 작성한 글의 목록을 보여준다.
-	 * 조건 2. 글 번호, 제목, 작성자, 작성일, 조회수
-	 */
+	// [[[[[[[[[[ 게시글 전체 조회 ]]]]]]]]]]
 	public List<Map<String, Object>> boardList(Map<String, Object> pMap) {
 		logger.info("boardList 호출 성공");
 		List<Map<String, Object>> boardList = null;
@@ -30,14 +25,7 @@ public class BoardLogic {
 		return boardList;
 	}
 
-	/*
-	 * [[[[[[[[[[ 게시글 상세 조회 ]]]]]]]]]]
-	 * 
-	 * 조건 1. 커뮤니티 내 회원이 작성한 글 상세 조회 (하나의 row)
-	 * 조건 2. 글 번호, 제목, 작성자, 작성일, 조회수
-	 * 조건 3. 게시글 전체 조회 페이지에서 제목 클릭하면 글 번호가 매핑되어 해당 글로 이동할 것
-	 * 조건 4. 관리자에게서만 삭제 버튼이 보일 수 있도록..
-	 */
+	// [[[[[[[[[[ 게시글 상세 조회 ]]]]]]]]]]
 	public Map<String, Object> boardDetail(Map<String, Object> pMap) {
 		logger.info("boardDetail 호출 성공");
 		Map<String, Object> boardDetail = null;
@@ -45,14 +33,17 @@ public class BoardLogic {
 		return boardDetail;
 	}
 
-	/*
-	 * [[[[[[[[[[ 게시글 상세 조회 -> 한 건 삭제하기 ]]]]]]]]]] 
-	 * 
-	 * 조건1. 게시글 상세 조회 페이지에서 한 건 삭제 (하나의 row)
-	 */
+	// [[[[[[[[[[ 게시글 삭제 ]]]]]]]]]] 
 	public int boardDelete(Map<String, Object> pMap) {
 		int result = 0;
 		result = boardDao.boardDelete(pMap);
+		return result;
+	}
+
+	// [[[[[[[[[[ 게시글 블라인드 ]]]]]]]]]
+	public int boardBlind(Map<String, Object> pMap) {
+		int result = 0;
+		result = boardDao.boardBlind(pMap);
 		return result;
 	}
 
