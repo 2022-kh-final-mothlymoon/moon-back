@@ -1,6 +1,8 @@
 package kh.sellermoon.member.dao;
 
 
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,6 +62,41 @@ public class MemberDao {
 		try {
 			result = sqlSessionTemplate.selectOne("getMNo");
 			logger.info(result + "");
+		} catch (Exception e) {
+			logger.info("Exception : " + e.toString());
+		}
+		return result;
+	}
+	
+	public int emailChk(MemberVO mVO) {
+		logger.info("이메일 중복체크 호출 성공");
+		int result = 0;
+		try {
+			result = sqlSessionTemplate.selectOne("emailChk", mVO);
+			logger.info(result + "");
+		} catch (Exception e) {
+			logger.info("Exception : " + e.toString());
+		}
+		return result;
+	}
+
+	public MemberVO findEmail(MemberVO mVO) {
+		logger.info("이메일 찾기 호출 성공");
+		return sqlSessionTemplate.selectOne("findEmail", mVO);
+	}
+
+	public int findPassword(MemberVO mVO) {
+		logger.info("비밀번호 찾기 호출 성공");
+		int result = sqlSessionTemplate.selectOne("findPassword", mVO);
+		return result;
+	}
+
+	public int updatePass(MemberVO mVO) {
+		int result = 0;
+		try {
+			result = sqlSessionTemplate.update("updatePass", mVO);
+			logger.info("비밀번호 수정 호출 성공");
+			logger.info("result : " + result);
 		} catch (Exception e) {
 			logger.info("Exception : " + e.toString());
 		}

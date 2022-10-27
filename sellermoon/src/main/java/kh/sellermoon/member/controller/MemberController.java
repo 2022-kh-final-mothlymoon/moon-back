@@ -28,10 +28,14 @@ public class MemberController {
 	public String memberRegister(MemberVO mVO, PointVO pVO) {
 		logger.info("memberRegister 호출 성공");
 		int result = 0;
-		result = memberLogic.memberRegister(mVO, pVO);
-		return "redirect:/login";
+		result = memberLogic.emailChk(mVO);
+		if(result == 1) {
+			return "/monthlymoon/register";
+		}else if(result == 0) {
+			memberLogic.memberRegister(mVO, pVO);			
+		}
+		return "redirect:http://localhost:3000/login";
 	}
-
 
 	// 로그아웃
 	@GetMapping("logout")
@@ -40,15 +44,16 @@ public class MemberController {
 		logger.info("로그아웃 성공");
 		return "redirect:/monthlymoon/main";
 	}
+	
 
 	// 회원 정보 수정
 	@PostMapping("membermodify")
 	public String memberModify(HttpSession session, MemberVO mVO) {
 		logger.info("회원정보 수정 호출");
-		int result = 0;
-		result = memberLogic.memberModify(mVO);
+		memberLogic.memberModify(mVO);
 		session.invalidate();
 		return "redirect:/monthlymoon/login";
 	}
+	
 
 }

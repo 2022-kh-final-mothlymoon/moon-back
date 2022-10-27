@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mybatis.mapper.memberMapper">
 	<resultMap type="java.util.Map" id="memberMap"></resultMap>
-	
-	<!-- 회원가입 쿼리문 -->
+
+	<!-- 회원가입 -->
 	<insert id="memberRegister" parameterType="kh.sellermoon.member.vo.MemberVO">
 		INSERT INTO TB_MEMBER( member_no, member_address, member_method,
 		                        member_level, member_password, member_name, member_phone,
@@ -16,6 +16,16 @@
 						,#{member_address_detail} )
 	</insert>
 	
+	<!-- 카카오톡 회원가입 -->
+	<insert id="kakaoRegister" parameterType="kh.sellermoon.member.vo.MemberVO">
+		INSERT INTO TB_MEMBER( member_no, member_method,
+		                        member_level, member_name, member_email
+		                        , member_date)
+				VALUES ( SEQ_TB_MEMBER_MEMBER_NO.NEXTVAL||123,'카카오톡'
+						,0,#{member_name},#{member_email}
+						,TO_CHAR(SYSDATE, 'YYYY-MM-DD HH:MM:SS'))
+	</insert>
+	
 	<!-- 회원가입시 적립금 1000원 지급 -->
 	<insert id="registerPoint" parameterType="kh.sellermoon.member.vo.PointVO">
 	INSERT INTO TB_POINT(point_no, member_point, point_date, point_used_saved, member_no, point_type)
@@ -23,12 +33,18 @@
         			,TO_CHAR(SYSDATE, 'YYYY-MM-DD HH:MM:SS'),0,#{member_no},0)
 	</insert>
 	
-	<!-- 회원번호 채번 쿼리문 -->
+	<!-- 회원번호 채번 -->
  	<select id="getMNo" parameterType="map" resultType="int">
 		SELECT NVL((SELECT /*+index_desc(TB_MEMBER PK_TB_MEMBER)*/ member_no
 		             FROM TB_MEMBER
 		            WHERE rownum = 1),0)+1 member_no
 		  FROM dual   
+	</select>
+	
+	<!-- 이메일 중복체크 -->
+	<select id="emailChk" parameterType="kh.sellermoon.member.vo.PointVO" resultType="int">
+		SELECT COUNT(*) FROM tb_member
+		WHERE  member_email = #{member_email}
 	</select>
 	
 	<!-- 회원 로그인 -->
@@ -39,6 +55,27 @@
 		<!-- AND   member_password = #{member_password} -->
 	</select>
 	
+	<!-- 이메일(아이디) 찾기 -->
+	<select id="findEmail" resultType="kh.sellermoon.member.vo.MemberVO">
+		SELECT member_email FROM tb_member
+		 WHERE member_name = #{member_name} AND member_phone =#{member_phone}
+	</select>
+	
+	<!-- 임시 비밀번호 발급 -->
+	<select id="findPassword" parameterType="kh.sellermoon.member.vo.MemberVO" resultType="int">
+		SELECT count(*) FROM tb_member
+		WHERE member_email =#{member_email}
+		AND member_name =#{member_name}
+		AND member_phone =#{member_phone}
+	</select>
+	
+	<!-- 비밀번호 업데이트 -->
+	<update id="updatePass" parameterType="kh.sellermoon.member.vo.MemberVO">
+		UPDATE TB_MEMBER
+		SET member_password =#{member_password}
+		WHERE member_email =#{member_email}
+	</update>
+		
 	<!-- 회원 정보 수정(아직 진행중) -->
 	<update id="memberModify" parameterType="kh.sellermoon.member.vo.MemberVO" >
 			UPDATE tb_member
@@ -50,4 +87,6 @@
 		    member_birth =#{member_birth}
 		WHERE member_no =#{member_no}
 	</update>
+	
+	
 </mapper>
