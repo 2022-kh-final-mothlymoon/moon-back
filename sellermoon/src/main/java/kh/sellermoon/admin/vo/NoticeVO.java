@@ -1,6 +1,5 @@
 package kh.sellermoon.admin.vo;
 
-import java.sql.Timestamp;
 
 import lombok.Data;
 

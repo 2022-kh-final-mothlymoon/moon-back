@@ -45,6 +45,16 @@ public class NoticeLogic {
 		return result;
 	}
 
+	public List<Map<String, Object>> noticeDetail(Map<String, Object> pMap) {
+		logger.info("noticeDetail 호출 성공");
+		List<Map<String,Object>> noticeList = null;
+		noticeList = noticeDao.noticeList(pMap);
+		if(noticeList!=null && noticeList.size()==1) {
+			noticeDao.hitCount(pMap);
+		}
+		return noticeList; 
+	}
+
 
 
 }

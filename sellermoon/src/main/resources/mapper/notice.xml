@@ -7,8 +7,6 @@
 	<select id="noticeList" parameterType="map" resultType="java.util.Map">
 		SELECT notice_no, admin_id, notice_title, notice_content, notice_hit
 				, notice_category, notice_regdate,notice_file
-				,(select admin_name from tb_admin where admin_id = admin_id)
-				as notice_writer
 		FROM	tb_notice
 		
 		<where>
@@ -21,8 +19,8 @@
 			<if test='gubun!=null and gubun.equals("notice_title")'>
 				AND notice_title LIKE '%'||#{keyword}||'%'
 			</if>	 
-			<if test='gubun!=null and gubun.equals("admin_name")'>
-				AND admin_name LIKE '%'||#{keyword}||'%'
+			<if test='gubun!=null and gubun.equals("notice_category")'>
+				AND notice_category LIKE '%'||#{keyword}||'%'
 			</if>		  		
 		</where>
 		
@@ -47,6 +45,11 @@
 		DELETE FROM tb_notice
 		 WHERE notice_no = #{notice_no}
 	</delete>
+	
+	<update id="hitCount" parameterType="map">
+		UPDATE tb_notice
+		   SET notice_hit = notice_hit + 1
+		 WHERE notice_no = #{notice_no}
+	</update>
 
-	 
 </mapper>	
