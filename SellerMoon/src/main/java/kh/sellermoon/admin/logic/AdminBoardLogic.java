@@ -8,14 +8,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kh.sellermoon.admin.dao.BoardDao;
+import kh.sellermoon.admin.dao.AdminBoardDao;
 
+/*
+	<<<관리자>>> BoardLogic (게시글 수정 -> 블라인드 처리)
+*/
 @Service
-public class BoardLogic {
-	Logger logger = LoggerFactory.getLogger(BoardLogic.class);
+public class AdminBoardLogic {
+	Logger logger = LoggerFactory.getLogger(AdminBoardLogic.class);
 
 	@Autowired(required = false)
-	private BoardDao boardDao = null;
+	private AdminBoardDao boardDao = null;
 
 	// [[[[[[[[[[ 게시글 전체 조회 ]]]]]]]]]]
 	public List<Map<String, Object>> boardList(Map<String, Object> pMap) {
@@ -33,19 +36,17 @@ public class BoardLogic {
 		return boardDetail;
 	}
 
+	// [[[[[[[[[[ 게시글 수정 (블라인드 처리) ]]]]]]]]]
+	public int boardUpdate(Map<String, Object> pMap) {
+		int result = 0;
+		result = boardDao.boardUpdate(pMap);
+		return result;
+	}
+	
 	// [[[[[[[[[[ 게시글 삭제 ]]]]]]]]]] 
 	public int boardDelete(Map<String, Object> pMap) {
 		int result = 0;
 		result = boardDao.boardDelete(pMap);
 		return result;
 	}
-
-	// [[[[[[[[[[ 게시글 블라인드 ]]]]]]]]]
-	public int boardBlind(Map<String, Object> pMap) {
-		int result = 0;
-		result = boardDao.boardBlind(pMap);
-		return result;
-	}
-
-
 }

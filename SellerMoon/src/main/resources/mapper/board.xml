@@ -3,45 +3,59 @@
 <mapper namespace="kh.mybatis.mapper.boardMapper">
 	<resultMap type="java.util.Map" id="boardMap"></resultMap>
 	
-	<!-- 커뮤니티 전체 글 조회 -->
-		<!-- jsonBoardList 호출 -->
-			<!-- react-oracle에서 전체 글 조회 및 글 상세보기 조회 -->
+	<!-- [[[[[[[[[[[[[[[[[[[[[[ 공통 쿼리 시작 ]]]]]]]]]]]]]]]]]]]]]] -->
+	
+	<!-- 커뮤니티 전체 글 조회 : jsonBoardList 호출 -->
 	<select id="boardList" parameterType="java.util.Map" resultType="map">
 		SELECT board_no, board_category, board_title, board_content, member_name, board_written_date, board_hit
 			  ,board_like, board_dislike, board_report_count, board_blind
     	  FROM tb_community NATURAL JOIN tb_member
     	<where>
+    		<!-- 상세보기 -->
     		<if test='board_no != null'>
     			AND board_no = ${board_no}
+    		</if>
+    		<if test='board_no != null and board_category != null'>
+    			AND board_category = ${board_category}
     		</if>
     	</where>
       ORDER BY board_no DESC
 	</select>
 	
-	<!-- 커뮤니티 상세 글 블라인드 여부 설정 -->
-	<update id="boardBlind" parameterType="map">
-		UPDATE tb_community
-           SET board_blind = #{board_blind}
-		 WHERE board_no = #{board_no}
-	</update>
-	
-	
-	
-	
 	<!-- 커뮤니티 상세 글 삭제 -->
-			<!-- react-oracle에서 board_no에 해당하는 글 삭제 -->
 	<delete id="boardDelete" parameterType="map">
 		DELETE FROM tb_community
               WHERE board_no = #{board_no}
 	</delete>
 	
+	<!-- [[[[[[[[[[[[[[[[[[[[[[ 공통 쿼리 종료 ]]]]]]]]]]]]]]]]]]]]]] -->
 	
-	<!-- 커뮤니티 상세 글 조회 -->
-		<!-- jsonBoardDetail 호출 -->
-	<select id="boardDetail" parameterType="map" resultType="map">
-		SELECT board_no, board_category, board_title, board_content, member_name
-			  ,board_written_date, board_hit, board_like, board_dislike, board_report_count
-  		  FROM tb_community NATURAL JOIN tb_member
-  		 WHERE board_no = #{board_no}
-	</select>
+	
+	
+	<!-- [[[[[[[[[[[[[[[[[[[[[[ 관리자 쿼리 시작 ]]]]]]]]]]]]]]]]]]]]]] -->
+	
+	<!-- 커뮤니티 상세 글 업데이트 : 블라인드 여부 설정 -->
+	<update id="boardAUpdate" parameterType="map">
+		UPDATE tb_community
+           SET board_blind = #{board_blind}
+		 WHERE board_no = #{board_no}
+	</update>
+	
+	<!-- [[[[[[[[[[[[[[[[[[[[[[ 관리자 쿼리 종료 ]]]]]]]]]]]]]]]]]]]]]] -->
+	
+	
+	
+	<!-- [[[[[[[[[[[[[[[[[[[[[[ 회원 쿼리 시작 ]]]]]]]]]]]]]]]]]]]]]] -->
+	
+	<!-- 커뮤니티 글 작성 -->
+	<insert id="boardMInsert" parameterType="map">
+		INSERT INTO tb_community 
+            		(board_no, member_no, board_title, board_content, board_written_date, board_category)
+     		 VALUES (board_no_seq.NEXTVAL, #{member_no},#{board_title},#{board_content},to_char(sysdate, 'YYYY-MM-DD'), #{board_category})
+	</insert>
+	
+	
+	<!-- [[[[[[[[[[[[[[[[[[[[[[ 회원 쿼리 종료 ]]]]]]]]]]]]]]]]]]]]]] -->
+	
+	
 </mapper>
