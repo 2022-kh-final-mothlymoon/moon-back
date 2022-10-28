@@ -50,6 +50,7 @@ public class MemberDao {
 		try {
 			result = sqlSessionTemplate.update("memberModify", mVO);
 			logger.info("result : " + result);
+			logger.info("회원정보수정 호출 성공");
 		} catch (Exception e) {
 			logger.info("Exception : " + e.toString());
 		}
@@ -102,5 +103,28 @@ public class MemberDao {
 		}
 		return result;
 	}
+
+	public MemberVO memInfo(MemberVO mVO) {
+		logger.info("회원 정보 보기 호출 성공");
+		return sqlSessionTemplate.selectOne("viewMember", mVO);
+	}
+
+	public MemberVO passChk(MemberVO mVO) {
+		logger.info("비밀번호 확인 호출 성공");
+		return sqlSessionTemplate.selectOne("chkPass", mVO);
+	}
+
+	public int delMember(MemberVO mVO) {
+		int result = 0;
+		try {
+			result = sqlSessionTemplate.delete("memberDelete", mVO);
+			logger.info("회원탈퇴 호출 성공");
+			logger.info("result : " + result);
+		} catch (Exception e) {
+			logger.info("Exception : " + e.toString());
+		}
+		return result;
+	}
+
 
 }

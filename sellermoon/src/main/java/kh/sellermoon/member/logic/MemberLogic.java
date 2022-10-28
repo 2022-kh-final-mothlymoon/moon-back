@@ -1,6 +1,5 @@
 package kh.sellermoon.member.logic;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,19 +57,23 @@ public class MemberLogic {
 			return mVO;
 		}
 	}
-
-	public MemberVO memberLogin2(MemberVO mVO) {
-		logger.info("memberLogin 호출 성공");
-		return memberDao.memberLogin(mVO);
-	}
-
+	
+	// 회원 정보 수정
 	public int memberModify(MemberVO mVO) {
-		logger.info("memberModify 호출 성공");
+		logger.info("회원정보수정 호출 성공");
+		int result = 0;
+		result = memberDao.memberModify(mVO);
+		return result;
+	}
+	
+	// 비밀번호 수정
+	public int updatePass(MemberVO mVO) {
+		logger.info("비밀번호 수정 호출 성공");
+		int result = 0;
 		String encodedPassword = passwordEncoder.encode(mVO.getMember_password());
 		mVO.setMember_password(encodedPassword);
 		logger.info(encodedPassword);
-		int result = 0;
-		result = memberDao.memberModify(mVO);
+		result = memberDao.updatePass(mVO);
 		return result;
 	}
 
@@ -100,14 +103,14 @@ public class MemberLogic {
 		}
 		return str;
 	}
-	
+
 	// 비밀번호 랜덤 숫자+문자로 업데이트해서 메일 발송
-	public int updatePass(MemberVO mVO, MailVO mailVO) {
-		if(memberDao.findPassword(mVO) == 0) { // 해당하는 email이 없으면 0을 return
+	public int tempPass(MemberVO mVO, MailVO mailVO) {
+		if (memberDao.findPassword(mVO) == 0) { // 해당하는 email이 없으면 0을 return
 			logger.info("존재하지 않는 회원");
 			return 0;
 		} else {
-			logger.info("비밀번호 수정 호출 성공");
+			logger.info("임시 비밀번호 발급 호출 성공");
 			memberDao.findPassword(mVO);
 			String tempPass = getTempPassword();
 			mVO.setMember_email(mVO.getMember_email());
@@ -118,38 +121,64 @@ public class MemberLogic {
 			// 변경 후 메일 발송
 			sendEmail(mVO, mailVO);
 			// 랜덤 비밀번호 암호화해서 DB저장
-			if(result == 1) {
+			if (result == 1) {
 				String encodedPassword = passwordEncoder.encode(mVO.getMember_password());
 				mVO.setMember_password(encodedPassword);
 				logger.info(encodedPassword);
 				int result2 = memberDao.updatePass(mVO);
 			}
-			return result;			
+			return result;
 		}
 	}
+
 	// 임시 비밀번호 발급 메일 보내기
 	public void sendEmail(MemberVO mVO, MailVO mailVO) {
-			logger.info("메일 작성 호출 성공");
-			logger.info(mVO.getMember_email());
-			logger.info(mVO.getMember_name());
-			// 메일 작성하기
-			mailVO.setAddress(mVO.getMember_email());
-			logger.info(mailVO.getAddress());
-			mailVO.setTitle("Sellermoon 임시 비밀번호 안내 메일입니다.");
-			mailVO.setMessage("안녕하세요. Sellermoon 임시 비밀번호 관련 안내 메일입니다. "
-					+ mVO.getMember_name() + " 님의 임시비밀번호는 "
-					+ mVO.getMember_password() + " 입니다. " + "로그인 후 비밀번호를 변경해주세요.");
-			
-			// 메일 보내기
-			logger.info("메일 보내기 호출 성공");
-			SimpleMailMessage message = new SimpleMailMessage();
-			message.setTo(mailVO.getAddress());
-			message.setSubject(mailVO.getTitle());
-			message.setText(mailVO.getMessage());
-			message.setFrom("kh.sellermoon@gmail.com");
-			message.setReplyTo("kh.sellermoon@gmail.com");
-			logger.info(message.toString());
-			mailsend.send(message);
-		}
+		logger.info("메일 작성 호출 성공");
+		logger.info(mVO.getMember_email());
+		logger.info(mVO.getMember_name());
+		// 메일 작성하기
+		mailVO.setAddress(mVO.getMember_email());
+		logger.info(mailVO.getAddress());
+		mailVO.setTitle("Sellermoon 임시 비밀번호 안내 메일입니다.");
+		mailVO.setMessage("안녕하세요. Sellermoon 임시 비밀번호 관련 안내 메일입니다. " + mVO.getMember_name() + " 님의 임시비밀번호는 "
+				+ mVO.getMember_password() + " 입니다. " + "로그인 후 비밀번호를 변경해주세요.");
+
+		// 메일 보내기
+		logger.info("메일 보내기 호출 성공");
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setTo(mailVO.getAddress());
+		message.setSubject(mailVO.getTitle());
+		message.setText(mailVO.getMessage());
+		message.setFrom("kh.sellermoon@gmail.com");
+		message.setReplyTo("kh.sellermoon@gmail.com");
+		logger.info(message.toString());
+		mailsend.send(message);
+	}
+
+	// 회원 정보 보기
+	public MemberVO memInfo(MemberVO mVO) {
+		logger.info("회원 정보 보기 호출 성공");
+		return memberDao.memInfo(mVO);
 	}
 	
+	// 회원정보 수정 전 비밀번호 확인
+	public MemberVO passChk(MemberVO mVO) {
+		logger.info("비밀번호 확인 호출 성공");
+		MemberVO passchk = memberDao.passChk(mVO);
+		if (passchk != null && passwordEncoder.matches(mVO.getMember_password(), passchk.getMember_password())) {
+			logger.info("비밀번호 확인 성공");
+			return passchk;
+		} else {
+			logger.info("비밀번호 확인 실패");
+			return mVO;
+		}
+	}
+	// 회원 탈퇴
+	public int delMember(MemberVO mVO) {
+		logger.info("회원탈퇴 호출 성공");
+		int result = 0;
+		result = memberDao.delMember(mVO);
+		return result;
+	}
+
+}

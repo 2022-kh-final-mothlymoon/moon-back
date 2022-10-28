@@ -29,7 +29,7 @@ public class SecurityJavaConfig {
 			.headers().frameOptions().disable()
 			.and()
 			.authorizeRequests().antMatchers(HttpMethod.OPTIONS).permitAll()
-			.antMatchers("/monthlymoon/**", "/admin/**").permitAll()
+			.antMatchers("/**").permitAll()
 			.anyRequest().authenticated();
 
 		return http.build();

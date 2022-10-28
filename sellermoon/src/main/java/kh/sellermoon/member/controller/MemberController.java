@@ -17,7 +17,7 @@ import kh.sellermoon.member.vo.MemberVO;
 import kh.sellermoon.member.vo.PointVO;
 
 @Controller
-@RequestMapping("/monthlymoon")
+//@RequestMapping("/monthlymoon")
 public class MemberController {
 	Logger logger = LoggerFactory.getLogger(AdminController.class);
 	@Autowired
@@ -45,15 +45,6 @@ public class MemberController {
 		return "redirect:/monthlymoon/main";
 	}
 	
-
-	// 회원 정보 수정
-	@PostMapping("membermodify")
-	public String memberModify(HttpSession session, MemberVO mVO) {
-		logger.info("회원정보 수정 호출");
-		memberLogic.memberModify(mVO);
-		session.invalidate();
-		return "redirect:/monthlymoon/login";
-	}
 	
 
 }
