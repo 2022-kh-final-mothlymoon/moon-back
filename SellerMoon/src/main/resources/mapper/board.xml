@@ -7,7 +7,9 @@
 	
 	<!-- 커뮤니티 전체 글 조회 : jsonBoardList 호출 -->
 	<select id="boardList" parameterType="java.util.Map" resultType="map">
-		SELECT board_no, board_category, board_title, board_content, member_name, board_written_date, board_hit
+		SELECT board_no, board_category
+			  ,DECODE(board_blind, 'Y', '블라인드 처리된 게시글입니다.', board_title) AS board_title
+			  ,board_content, member_name, board_written_date, board_hit
 			  ,board_like, board_dislike, board_report_count, board_blind
     	  FROM tb_community NATURAL JOIN tb_member
     	<where>
@@ -15,6 +17,7 @@
     		<if test='board_no != null'>
     			AND board_no = ${board_no}
     		</if>
+    		<!-- 카테고리 별로 보기 -->
     		<if test='board_no != null and board_category != null'>
     			AND board_category = ${board_category}
     		</if>

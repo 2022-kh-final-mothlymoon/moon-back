@@ -21,25 +21,12 @@ import kh.sellermoon.member.logic.MemberBoardLogic;
 	<<<회원>>> BoardController
 */
 @Controller
-@RestController
 @RequestMapping("/member/board/*")
 public class MemberBoardController {
 	Logger logger = LoggerFactory.getLogger(MemberBoardController.class);
 	
 	@Autowired(required = false)
 	private MemberBoardLogic boardLogic = null;
-	
-	// [[[[[[[[[[ 회원 게시글 전체조회 / 상세조회 / 조건검색 ]]]]]]]]]]
-	@GetMapping(value="jsonBoardList")
-	public String boardList(@RequestParam Map<String, Object> pMap) {
-		logger.info("member : jsonBoardList 호출 성공");
-		List<Map<String, Object>> boardList = null;
-		boardList = boardLogic.boardList(pMap);
-		String gBoardList = null;
-		Gson g = new Gson();
-		gBoardList = g.toJson(boardList);
-		return gBoardList;
-	}
 	
 	// [[[[[[[[[[ 회원 게시글 입력 ]]]]]]]]]]
 	@GetMapping(value="boardInsert")
