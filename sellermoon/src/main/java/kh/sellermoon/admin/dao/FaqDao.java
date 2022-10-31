@@ -50,10 +50,17 @@ public class FaqDao {
 		return result;
 	}
 
+<<<<<<< HEAD
 	public int viewCount(Map<String, Object> pMap) {
 		int result = 0;
 		try {
 			result = sqlSessionTemplate.update("viewCount",pMap);
+=======
+	public int hitCount(Map<String, Object> pMap) {
+		int result = 0;
+		try {
+			result = sqlSessionTemplate.update("hitCount",pMap);
+>>>>>>> 2b7de2a9fa672d4c5f12220001f2ea2409a07c03
 			logger.info("result : "+result);
 		} catch (Exception e) {
 			logger.info("Exception : "+e.toString());
