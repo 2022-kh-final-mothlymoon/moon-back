@@ -8,30 +8,35 @@
 		INSERT INTO TB_MEMBER( member_no, member_address, member_method,
 		                        member_level, member_password, member_name, member_phone,
 		                        member_birth, member_zipcode, member_email, member_date
-		                        ,member_address_detail )
+		                        ,member_address_detail, member_code, member_recommend )
 				VALUES ( #{member_no},#{member_address},'이메일'
 						,0,#{member_password},#{member_name},#{member_phone}
 						,#{member_birth},#{member_zipcode},#{member_email}
 						,TO_CHAR(SYSDATE, 'YYYY-MM-DD HH:MM:SS')
-						,#{member_address_detail} )
+						,#{member_address_detail, jdbcType=VARCHAR}
+						, #{member_code}, #{member_recommend, jdbcType=VARCHAR})
 	</insert>
 	
-	<!-- 카카오톡 회원가입 -->
-	<insert id="kakaoRegister" parameterType="kh.sellermoon.member.vo.MemberVO">
-		INSERT INTO TB_MEMBER( member_no, member_method,
-		                        member_level, member_name, member_email
-		                        , member_date)
-				VALUES ( SEQ_TB_MEMBER_MEMBER_NO.NEXTVAL||123,'카카오톡'
-						,0,#{member_name},#{member_email}
-						,TO_CHAR(SYSDATE, 'YYYY-MM-DD HH:MM:SS'))
-	</insert>
-	
-	<!-- 회원가입시 적립금 1000원 지급 -->
+	<!-- 회원가입시 적립금 2000원 지급 -->
 	<insert id="registerPoint" parameterType="kh.sellermoon.member.vo.PointVO">
 	INSERT INTO TB_POINT(point_no, member_point, point_date, point_used_saved, member_no, point_type)
 					VALUES (SEQ_TB_MEMBER_POINT_NO.NEXTVAL, 2000
         			,TO_CHAR(SYSDATE, 'YYYY-MM-DD HH:MM:SS'),0,#{member_no},0)
 	</insert>
+	
+	<!-- 추천인 기입시 적립금 2000원 지급-->
+	<insert id="recommendPoint" parameterType="kh.sellermoon.member.vo.PointVO">
+	INSERT INTO TB_POINT(point_no, member_point, point_date, point_used_saved, member_no, point_type)
+					VALUES (SEQ_TB_MEMBER_POINT_NO.NEXTVAL, 2000
+        			,TO_CHAR(SYSDATE, 'YYYY-MM-DD HH:MM:SS'),0,#{member_no},1)
+	</insert>
+	
+	<!-- 추천인 기입시 기존회원에게 적립금 2000원 지급하기위한 select문 -->
+	<select id="recommendMem" resultType="kh.sellermoon.member.vo.MemberVO">
+				SELECT member_no, member_code
+				FROM tb_member
+				WHERE member_code =#{member_code}
+	</select>
 	
 	<!-- 회원번호 채번 -->
  	<select id="getMNo" parameterType="map" resultType="int">
@@ -47,12 +52,11 @@
 		WHERE  member_email = #{member_email}
 	</select>
 	
-	<!-- 회원 로그인 -->
+	<!-- 회원 로그인 로직에서 비밀번호를 비교하기때문에 password 조건절 필요없음 -->
 	<select id="memberLogin" resultType="kh.sellermoon.member.vo.MemberVO">
 		SELECT member_no, member_name, member_password, member_email
 		FROM TB_MEMBER
 		WHERE member_email = #{member_email}
-		<!-- AND   member_password = #{member_password} -->
 	</select>
 	
 	<!-- 이메일(아이디) 찾기 -->
@@ -73,15 +77,15 @@
 	<update id="updatePass" parameterType="kh.sellermoon.member.vo.MemberVO">
 		UPDATE TB_MEMBER
 		SET member_password =#{member_password}
-		WHERE member_email =#{member_email}
+		WHERE member_no =#{member_no}
 	</update>
 	
 	<!-- 회원 정보 보기 -->
-	<select id="viewMember" resultType="kh.sellermoon.member.vo.MemberVO">
+	<select id="viewMember" resultType="kh.sellermoon.member.vo.MemberVO" parameterType="kh.sellermoon.member.vo.MemberVO">
 		SELECT member_no,   member_zipcode, member_address, member_address_detail,
-		       member_method, member_level, member_password,
+		       member_method, DECODE(member_level,0,'초승달',1,'반달','보름달') member_level, member_password,
 		       member_name, member_phone, member_birth, member_email,
-		       member_date
+		       member_date, member_code
 		FROM   tb_member
 		WHERE  member_no =#{member_no}
 	</select>
@@ -93,7 +97,7 @@
 		 WHERE  member_no =#{member_no}
 	</select>
 		
-	<!-- 회원 정보 수정(아직 진행중) -->
+	<!-- 회원 정보 수정 -->
 	<update id="memberModify" parameterType="kh.sellermoon.member.vo.MemberVO" >
 		UPDATE tb_member
 		SET member_address =#{member_address}

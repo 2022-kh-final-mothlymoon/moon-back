@@ -23,6 +23,7 @@ public class MemberLogic {
 	@Autowired
 	private MailSender mailsend;
 
+	// 회원가입
 	public int memberRegister(MemberVO mVO, PointVO pVO) {
 		logger.info("memberRegister 호출 성공");
 		// 비밀번호 암호화
@@ -34,6 +35,9 @@ public class MemberLogic {
 		// member_no 채번해서 담기
 		member_no = memberDao.getMNo();
 		mVO.setMember_no(member_no);
+		// 회원가입시 회원코드 랜덤채번 후 등록
+		String m_code = getTempPassword();
+		mVO.setMember_code(m_code);
 		logger.info("member_no===> " + member_no);
 		result = memberDao.memberRegister(mVO);
 		// 회원가입하면 적립금 테이블에 point insert
@@ -41,14 +45,28 @@ public class MemberLogic {
 			logger.info("member_no===> " + member_no);
 			pVO.setMember_no(member_no);
 			int result2 = memberDao.registerPoint(pVO);
+			// 추천인 코드 입력하면 point insert
+			MemberVO rM = memberDao.recommendMem(mVO.getMember_recommend());
+			logger.info("MemberVO rM===> " + rM);
+			if(mVO.getMember_recommend() != null) {
+				// 신규회원에게 추천인 적립금
+				int result3 = memberDao.recommendPoint(pVO);
+				// 추천코드 쓰여진 기존회원에게 적립금
+				pVO.setMember_no(rM.getMember_no());
+				int result4 = memberDao.recommendPoint(pVO);
+				logger.info("result3 =====> "+result3);
+				logger.info("result4 =====> "+result4);
+			}
 			return result2;
 		}
 		return result;
 	}
-
+	
+	// 로그인
 	public MemberVO memberLogin(MemberVO mVO) {
 		logger.info("memberLogin 호출 성공");
 		MemberVO login = memberDao.memberLogin(mVO);
+		// 입력된 비밀번호와 DB에 저장된 암호화된 비밀번호를 비교
 		if (login != null && passwordEncoder.matches(mVO.getMember_password(), login.getMember_password())) {
 			logger.info("로그인 성공");
 			return login;
@@ -89,7 +107,7 @@ public class MemberLogic {
 		return memberDao.findEmail(mVO);
 	}
 
-	// 랜덤 비밀번호 생성
+	// 랜덤 비밀번호 생성&&추천인 코드 생성
 	public String getTempPassword() {
 		char[] charSet = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F',
 				'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
@@ -140,7 +158,8 @@ public class MemberLogic {
 		mailVO.setAddress(mVO.getMember_email());
 		logger.info(mailVO.getAddress());
 		mailVO.setTitle("Sellermoon 임시 비밀번호 안내 메일입니다.");
-		mailVO.setMessage("안녕하세요. Sellermoon 임시 비밀번호 관련 안내 메일입니다. " + mVO.getMember_name() + " 님의 임시비밀번호는 "
+		mailVO.setMessage("안녕하세요. Sellermoon 임시 비밀번호 관련 안내 메일입니다. " 
+				+ mVO.getMember_name() + " 님의 임시비밀번호는 "
 				+ mVO.getMember_password() + " 입니다. " + "로그인 후 비밀번호를 변경해주세요.");
 
 		// 메일 보내기

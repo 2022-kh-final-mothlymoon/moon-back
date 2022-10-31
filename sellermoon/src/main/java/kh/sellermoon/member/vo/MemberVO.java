@@ -8,7 +8,7 @@ public class MemberVO {
 	  private int    member_no       = 0;    
 	  private String member_address  = ""; 
 	  private String member_method   = ""; 
-	  private int    member_level    = 0; 
+	  private String member_level    = ""; 
 	  private String member_password = ""; 
 	  private String member_name     = ""; 
 	  private String member_phone    = ""; 
@@ -17,5 +17,8 @@ public class MemberVO {
 	  private String member_email    = ""; 
 	  private String member_date    = "";
 	  private String member_address_detail    = "";
+	  private String member_code    = "";
+	  private String member_recommend    = "";
+	  
 
 }
