@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mybatis.mapper.pointMapper">
+	<resultMap type="kh.sellermoon.admin.vo.PointVO" id="pointMap"></resultMap>
+	
+	<select id="pointList" parameterType="map" resultType="java.util.Map">
+		SELECT point_no, point_date, point_used_saved, member_no
+				, sum(POINT_USED_SAVED) OVER (PARTITION BY member_no) as point_sum
+				, DECODE(point_type, 1, '주문적립', 2, '상품후기등록', 3, '베스트후기선정'
+                , 4, '적립금사용', 5, '추천인입력') as point_type
+		FROM	tb_point
+		
+		<where>
+	  		<if test='member_no != null'>
+			 and member_no = #{member_no}
+	  		</if>
+			<if test='gubun!=null and gubun.equals("member_no")'>
+				and member_no = #{keyword}
+			</if>	 
+			<if test='gubun!=null and gubun.equals("point_no")'>
+				and point_no like '%'||#{keyword}||'%'
+			</if>	 
+			<if test='gubun!=null and gubun.equals("point_type")'>
+				and point_type like '%'||#{keyword}||'%'
+			</if>		  		
+		</where>
+		
+		ORDER BY point_no desc
+	</select> 
+	
+
+</mapper>	

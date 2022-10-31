@@ -96,11 +96,20 @@ public class RestNoticeController {
 	}
 	
 	
-	@GetMapping("noticeDelete")
+	@GetMapping("noticedelete")
 	public Object noticeDelete(@RequestParam Map<String,Object> pMap) {
 		logger.info("noticeDelete 호출 성공");
 		int result = 0;
 		result = noticeLogic.noticeDelete(pMap);
 		return String.valueOf(result);
 	}
+	
+	@GetMapping("noticedetail")
+	public String noticedetail(Model model, @RequestParam Map<String,Object> pMap) {
+		logger.info("noticedetail 호출 성공");
+		List<Map<String,Object>> noticeList = null;
+		noticeList = noticeLogic.noticeDetail(pMap);
+		model.addAttribute("noticeList",noticeList);
+		return String.valueOf(noticeList);
+	}	
 }
