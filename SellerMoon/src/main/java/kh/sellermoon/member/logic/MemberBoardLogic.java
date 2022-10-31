@@ -41,11 +41,11 @@ public class MemberBoardLogic {
 	public int boardInsert(Map<String, Object> pMap) {
 		logger.info("member : boardInsert 호출 성공");
 		int result = 0;
-		int board_no = 0;
+//		int board_no = 0;
 		
-		// 글 번호 채번하기 - 한 번 (게시글 생성 될 때)
-		board_no = boardDao.getBoard_no();
-		pMap.put("board_no", board_no);
+//		// 글 번호 채번하기 - 한 번 (게시글 생성 될 때)
+//		board_no = boardDao.getBoard_no();
+//		pMap.put("board_no", board_no);
 		
 		// 글 작성
 		result = boardDao.boardInsert(pMap);

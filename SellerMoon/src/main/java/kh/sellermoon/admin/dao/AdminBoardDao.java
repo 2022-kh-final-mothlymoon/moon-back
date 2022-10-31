@@ -59,6 +59,7 @@ public class AdminBoardDao {
 	
 	// [[[[[[[[[[ 관리자 게시글 삭제 ]]]]]]]]]]
 	public int boardDelete(Map<String, Object> pMap) {
+		logger.info("admin : pMap => " + pMap);
 		int result = 0;
 		try {
 			result = sqlSessionTemplate.delete("boardDelete", pMap);

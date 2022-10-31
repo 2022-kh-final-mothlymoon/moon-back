@@ -48,21 +48,8 @@ public class MemberBoardDao {
 	public int boardInsert(Map<String, Object> pMap) {
 		int result = 0;
 		try {
-			result = sqlSessionTemplate.update("boardInsert", pMap);
+			result = sqlSessionTemplate.update("boardMInsert", pMap);
 			logger.info("result :" + result);
-		} catch (Exception e) {
-			logger.info("Exception : " + e.toString());
-		}
-		return result;
-	}
-	
-	// [[[[[[[[[[ 회원 게시글 글번호 (글작성 시 채번) ]]]]]]]]]]
-	public int getBoard_no() {
-		logger.info("getBoard_no 호출 성공");
-		int result = 0;
-		try {
-			result = sqlSessionTemplate.selectOne("getBoard_no");
-			logger.info("result : " + result);
 		} catch (Exception e) {
 			logger.info("Exception : " + e.toString());
 		}
@@ -74,7 +61,7 @@ public class MemberBoardDao {
 		logger.info("member : pMap => " + pMap);
 		int result = 0;
 		try {
-			result = sqlSessionTemplate.insert("boardUpdate", pMap);
+			result = sqlSessionTemplate.insert("boardMUpdate", pMap);
 			logger.info("result : " + result);
 		} catch (DataAccessException e) {
 			logger.info("Exception : " + e.toString());

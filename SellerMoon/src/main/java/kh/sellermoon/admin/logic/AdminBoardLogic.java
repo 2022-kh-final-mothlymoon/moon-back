@@ -38,6 +38,7 @@ public class AdminBoardLogic {
 
 	// [[[[[[[[[[ 게시글 수정 (블라인드 처리) ]]]]]]]]]
 	public int boardUpdate(Map<String, Object> pMap) {
+		logger.info("boardUpdate 호출 성공");
 		int result = 0;
 		result = boardDao.boardUpdate(pMap);
 		return result;
@@ -45,6 +46,7 @@ public class AdminBoardLogic {
 	
 	// [[[[[[[[[[ 게시글 삭제 ]]]]]]]]]] 
 	public int boardDelete(Map<String, Object> pMap) {
+		logger.info("boardDelete 호출 성공");
 		int result = 0;
 		result = boardDao.boardDelete(pMap);
 		return result;

@@ -28,14 +28,16 @@ public class MemberBoardController {
 	@Autowired(required = false)
 	private MemberBoardLogic boardLogic = null;
 	
+	final String boardList = "redirect:http://localhost:3000/member/board/boardList";
+	
 	// [[[[[[[[[[ 회원 게시글 입력 ]]]]]]]]]]
-	@GetMapping(value="boardInsert")
+	@GetMapping("boardInsert")
 	public String boardInsert(@RequestParam Map<String, Object> pMap) {
 		logger.info("member : boardInsert 호출 완료");
 		int result = 0;
 		result = boardLogic.boardInsert(pMap);		
 		// 전체 글 목록으로 넘어가기 전에 게시글이 등록되었습니다. 페이지 후 목록으로 버튼 (react에서)
-		return "redirect:boardList"; 
+		return boardList; 
 		// 사진 업로드는 cloudynary에서
 	}
 	
@@ -46,7 +48,7 @@ public class MemberBoardController {
 		int result = 0;
 		result = boardLogic.boardUpdate(pMap);
 		// 전체 글 목록으로 넘어가기 전에 게시글이 수정되었습니다. 페이지 후 목록으로 버튼 (react에서)
-		return "redirect:boardList"; 
+		return boardList; 
 	}
 		
 	// [[[[[[[[[[ 회원 게시글 삭제 ]]]]]]]]]]
@@ -56,6 +58,6 @@ public class MemberBoardController {
 		int result = 0;
 		result = boardLogic.boardDelete(pMap);
 		// 전체 글 목록으로 넘어가기 전에 게시글이 삭제되었습니다. 페이지 후 목록으로 버튼 (react에서)
-		return "redirect:boardList";
+		return boardList;
 	}
 }
