@@ -12,10 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.ResponseBody;
-=======
->>>>>>> 2b7de2a9fa672d4c5f12220001f2ea2409a07c03
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
@@ -43,10 +40,7 @@ public class RestFaqController {
       return temp;
    }
 	
-<<<<<<< HEAD
 	@ResponseBody
-=======
->>>>>>> 2b7de2a9fa672d4c5f12220001f2ea2409a07c03
 	@PostMapping("faqinsert")
 	public String faqInsert(@RequestBody Map<String, Object> pMap) {
 	   logger.info(pMap);
@@ -74,11 +68,7 @@ public class RestFaqController {
 	}
 	
 	@GetMapping("faqdetail")
-<<<<<<< HEAD
 	public String faqDetail(Model model, @RequestParam Map<String,Object> pMap) {
-=======
-	public String faqdetail(Model model, @RequestParam Map<String,Object> pMap) {
->>>>>>> 2b7de2a9fa672d4c5f12220001f2ea2409a07c03
 		logger.info("faqdetail 호출 성공");
 		List<Map<String,Object>> faqList = null;
 		faqList = faqLogic.faqDetail(pMap);
