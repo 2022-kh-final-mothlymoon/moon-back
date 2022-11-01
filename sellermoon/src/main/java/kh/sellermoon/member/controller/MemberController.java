@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import kh.sellermoon.admin.controller.AdminController;
+import kh.sellermoon.admin.controller.RestAdminController;
 import kh.sellermoon.member.logic.MemberLogic;
 import kh.sellermoon.member.vo.MemberVO;
 import kh.sellermoon.member.vo.PointVO;
@@ -19,7 +19,7 @@ import kh.sellermoon.member.vo.PointVO;
 @Controller
 //@RequestMapping("/monthlymoon")
 public class MemberController {
-	Logger logger = LoggerFactory.getLogger(AdminController.class);
+	Logger logger = LoggerFactory.getLogger(RestAdminController.class);
 	@Autowired
 	private MemberLogic memberLogic = null;
 

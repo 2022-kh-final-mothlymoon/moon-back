@@ -21,7 +21,7 @@ public class AdminDao {
 	public AdminVO login(Map<String, Object> pMap) {
 		logger.info("login 호출 성공");
 		AdminVO aVO = null;
-		aVO = sqlSessionTemplate.selectOne("login", pMap);
+		aVO = sqlSessionTemplate.selectOne("Adminlogin", pMap);
 		return aVO;
 	}
 

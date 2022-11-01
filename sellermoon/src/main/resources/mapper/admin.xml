@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mybatis.mapper.adminMapper">
 	<resultMap type="java.util.Map" id="adminMap"></resultMap>
-	<select id="login" parameterType="map" resultType="kh.sellermoon.admin.vo.AdminVO">
+	<select id="Adminlogin" parameterType="map" resultType="kh.sellermoon.admin.vo.AdminVO">
 		SELECT admin_id, admin_name
 		FROM TB_ADMIN
 		WHERE admin_id =#{admin_id}
