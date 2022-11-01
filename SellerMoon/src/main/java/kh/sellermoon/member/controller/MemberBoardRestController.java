@@ -24,7 +24,7 @@ public class MemberBoardRestController {
 	private MemberBoardLogic boardLogic = null;
 	
 	// [[[[[[[[[[ 회원 게시글 전체조회 / 상세조회 / 조건검색 ]]]]]]]]]]
-	@GetMapping(value="jsonBoardList")
+	@GetMapping("jsonBoardList")
 	public String boardList(@RequestParam Map<String, Object> pMap) {
 		logger.info("member : jsonBoardList 호출 성공");
 		List<Map<String, Object>> boardList = null;

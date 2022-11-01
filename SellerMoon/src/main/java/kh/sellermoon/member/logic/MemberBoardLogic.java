@@ -12,7 +12,7 @@ import kh.sellermoon.member.dao.MemberBoardDao;
 import kh.sellermoon.member.logic.MemberBoardLogic;
 
 /*
-	<<<회원>>> BoardLogic (게시글 작성 시, 글번호 채번)
+	<<<회원>>> BoardLogic
 */
 @Service
 public class MemberBoardLogic {
@@ -41,19 +41,13 @@ public class MemberBoardLogic {
 	public int boardInsert(Map<String, Object> pMap) {
 		logger.info("member : boardInsert 호출 성공");
 		int result = 0;
-//		int board_no = 0;
-		
-//		// 글 번호 채번하기 - 한 번 (게시글 생성 될 때)
-//		board_no = boardDao.getBoard_no();
-//		pMap.put("board_no", board_no);
-		
-		// 글 작성
 		result = boardDao.boardInsert(pMap);
 		return result;
 	}
 	
 	// [[[[[[[[[[ 회원 게시글 수정 ]]]]]]]]]]
 	public int boardUpdate(Map<String, Object> pMap) {
+		logger.info("member : boardUpdate 호출 성공");
 		int result = 0;
 		result = boardDao.boardUpdate(pMap);
 		return result;
@@ -61,6 +55,7 @@ public class MemberBoardLogic {
 	
 	// [[[[[[[[[[ 회원 게시글 삭제 ]]]]]]]]]]
 	public int boardDelete(Map<String, Object> pMap) {
+		logger.info("member : boardDelete 호출 성공");
 		int result = 0;
 		result = boardDao.boardDelete(pMap);
 		return result;

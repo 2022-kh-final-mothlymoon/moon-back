@@ -33,7 +33,7 @@ public class MemberBoardController {
 	// [[[[[[[[[[ 회원 게시글 입력 ]]]]]]]]]]
 	@GetMapping("boardInsert")
 	public String boardInsert(@RequestParam Map<String, Object> pMap) {
-		logger.info("member : boardInsert 호출 완료");
+		logger.info("member : boardInsert 호출 성공");
 		int result = 0;
 		result = boardLogic.boardInsert(pMap);		
 		// 전체 글 목록으로 넘어가기 전에 게시글이 등록되었습니다. 페이지 후 목록으로 버튼 (react에서)

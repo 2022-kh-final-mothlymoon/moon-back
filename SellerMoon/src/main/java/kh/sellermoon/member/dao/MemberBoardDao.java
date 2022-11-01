@@ -11,7 +11,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 /*
-	<<<회원>>> BoardDao (글번호 채번 및 조회수 채번 데이터 저장)
+	<<<회원>>> BoardDao
 */
 @Service
 public class MemberBoardDao {
@@ -46,10 +46,11 @@ public class MemberBoardDao {
 	
 	// [[[[[[[[[[ 회원 게시글 입력 ]]]]]]]]]]
 	public int boardInsert(Map<String, Object> pMap) {
+		logger.info("member : pMap => " + pMap);
 		int result = 0;
 		try {
 			result = sqlSessionTemplate.update("boardMInsert", pMap);
-			logger.info("result :" + result);
+			logger.info("result : " + result);
 		} catch (Exception e) {
 			logger.info("Exception : " + e.toString());
 		}
@@ -71,6 +72,7 @@ public class MemberBoardDao {
 	
 	// [[[[[[[[[[ 회원 게시글 삭제 ]]]]]]]]]]
 	public int boardDelete(Map<String, Object> pMap) {
+		logger.info("member : pMap => " + pMap);
 		int result = 0;
 		try {
 			result = sqlSessionTemplate.delete("boardDelete", pMap);

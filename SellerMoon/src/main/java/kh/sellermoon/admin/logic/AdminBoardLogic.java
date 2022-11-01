@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import kh.sellermoon.admin.dao.AdminBoardDao;
 
 /*
-	<<<관리자>>> BoardLogic (게시글 수정 -> 블라인드 처리)
+	<<<관리자>>> BoardLogic
 */
 @Service
 public class AdminBoardLogic {
