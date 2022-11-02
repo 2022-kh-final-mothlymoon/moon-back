@@ -15,6 +15,9 @@ import com.google.gson.Gson;
 
 import kh.sellermoon.admin.logic.AdminBoardLogic;
 
+/*
+	<<<관리자>>> BoardRestController
+*/
 @RestController
 @RequestMapping("/admin/board/*")
 public class AdminBoardRestController {
