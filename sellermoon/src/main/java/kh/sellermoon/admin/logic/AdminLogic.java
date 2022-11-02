@@ -1,5 +1,6 @@
 package kh.sellermoon.admin.logic;
 
+import java.util.List;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,13 @@ public class AdminLogic {
 		AdminVO aVO = null;
 		aVO = adminDao.login(pMap);
 		return aVO;
+	}
+
+	public List<Map<String, Object>> memberList(Map<String, Object> pMap) {
+		logger.info("회원 정보 호출 성공");
+		List<Map<String, Object>> memberList = null;
+		memberList = adminDao.memberList(pMap);
+		return memberList; 
 	}
 
 }
