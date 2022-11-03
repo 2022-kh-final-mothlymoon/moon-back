@@ -19,16 +19,16 @@
 	
 	<!-- 회원가입시 적립금 2000원 지급 -->
 	<insert id="registerPoint" parameterType="kh.sellermoon.member.vo.PointVO">
-	INSERT INTO TB_POINT(point_no, member_point, point_date, point_used_saved, member_no, point_type)
-					VALUES (SEQ_TB_MEMBER_POINT_NO.NEXTVAL, 2000
-        			,TO_CHAR(SYSDATE, 'YYYY-MM-DD HH:MM:SS'),0,#{member_no},0)
+	INSERT INTO TB_POINT(point_no, point_date, point_used_saved, member_no, point_type)
+					VALUES (SEQ_TB_POINT_NO.NEXTVAL
+        			,TO_CHAR(SYSDATE, 'YYYY-MM-DD HH:MM:SS'),2000,#{member_no},0)
 	</insert>
 	
 	<!-- 추천인 기입시 적립금 2000원 지급-->
 	<insert id="recommendPoint" parameterType="kh.sellermoon.member.vo.PointVO">
-	INSERT INTO TB_POINT(point_no, member_point, point_date, point_used_saved, member_no, point_type)
-					VALUES (SEQ_TB_MEMBER_POINT_NO.NEXTVAL, 2000
-        			,TO_CHAR(SYSDATE, 'YYYY-MM-DD HH:MM:SS'),0,#{member_no},1)
+	INSERT INTO TB_POINT(point_no, point_date, point_used_saved, member_no, point_type)
+					VALUES (SEQ_TB_POINT_NO.NEXTVAL
+        			,TO_CHAR(SYSDATE, 'YYYY-MM-DD HH:MM:SS'),2000,#{member_no},1)
 	</insert>
 	
 	<!-- 추천인 기입시 기존회원에게 적립금 2000원 지급하기위한 select문 -->
