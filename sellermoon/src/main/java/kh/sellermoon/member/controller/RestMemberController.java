@@ -7,12 +7,15 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 
+import kh.sellermoon.member.logic.KaKaoLoginLogic;
 import kh.sellermoon.member.logic.MemberLogic;
 import kh.sellermoon.member.vo.MailVO;
 import kh.sellermoon.member.vo.MemberVO;
@@ -23,7 +26,10 @@ public class RestMemberController {
 	Logger logger = LoggerFactory.getLogger(RestMemberController.class);
 	@Autowired
 	private MemberLogic memberLogic = null;
+	@Autowired
+	private KaKaoLoginLogic kakaoLogic = null;
 	
+	// 일반 로그인
 	@PostMapping("login")
 	public String memberLogin(HttpServletRequest req, MemberVO mVO) {
 
@@ -38,12 +44,30 @@ public class RestMemberController {
 	
 	}
 	
+	// 카카오 로그인
+	@GetMapping("kakaologin")
+	public String kakaoCallback(@RequestParam String code) {
+		logger.info(code);
+		String access_token = kakaoLogic.getKakaoAccessToken(code);
+		try {
+			MemberVO userInfo = kakaoLogic.createKakaoUser(access_token);
+			String temp = "";
+			Gson g = new Gson();
+			temp = g.toJson(userInfo);
+			logger.info(temp);
+			return temp;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "";
+		}
+	}
+	
 	@PostMapping("emailcheck")
-	public String emailChk(MemberVO mVO) {
+	public String emailChk(String member_email) {
 		logger.info("이메일 중복체크 호출 성공");
 		int result = 0;
 		String temp = null;
-		result = memberLogic.emailChk(mVO);
+		result = memberLogic.emailChk(member_email);
 		Gson g = new Gson();
 		temp = g.toJson(result);
 		return temp;

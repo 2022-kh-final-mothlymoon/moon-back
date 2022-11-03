@@ -6,7 +6,6 @@ import lombok.Data;
 public class PointVO {
 	
 	  private int point_no         = 0; 
-	  private int member_point     = 0; 
 	  private int point_date       = 0; 
 	  private int point_used_saved = 0; 
 	  private int member_no        = 0; 

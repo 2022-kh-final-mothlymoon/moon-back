@@ -26,7 +26,7 @@
 			</if>	 	  		
 			<if test='gubun!=null and gubun.equals("member_email")'>
 				AND tm.member_email LIKE '%'||#{keyword}||'%'
-			</if>	 	  			  		
+			</if>	  			  		
 		</where>
   		ORDER BY tm.member_no asc
 	</select>

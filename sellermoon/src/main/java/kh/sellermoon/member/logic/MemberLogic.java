@@ -95,10 +95,10 @@ public class MemberLogic {
 		return result;
 	}
 
-	public int emailChk(MemberVO mVO) {
+	public int emailChk(String member_email) {
 		logger.info("이메일 중복체크 호출 성공");
 		int result = 0;
-		result = memberDao.emailChk(mVO);
+		result = memberDao.emailChk(member_email);
 		return result;
 	}
 

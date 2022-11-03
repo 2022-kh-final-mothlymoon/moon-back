@@ -28,7 +28,7 @@ public class MemberController {
 	public String memberRegister(MemberVO mVO, PointVO pVO) {
 		logger.info("memberRegister 호출 성공");
 		int result = 0;
-		result = memberLogic.emailChk(mVO);
+		result = memberLogic.emailChk(mVO.getMember_email());
 		if(result == 1) {
 			return "/monthlymoon/register";
 		}else if(result == 0) {

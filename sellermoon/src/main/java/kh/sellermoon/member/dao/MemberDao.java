@@ -1,8 +1,5 @@
 package kh.sellermoon.member.dao;
 
-
-import java.util.Map;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +14,7 @@ public class MemberDao {
 	Logger logger = LoggerFactory.getLogger(MemberDao.class);
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate = null;
-	
+
 	// 회원가입
 	public int memberRegister(MemberVO mVO) {
 		int result = 0;
@@ -29,6 +26,26 @@ public class MemberDao {
 		}
 		return result;
 	}
+
+	// 카카오 로그인
+	public MemberVO kakaoRegister(MemberVO mVO) {
+		try {
+			sqlSessionTemplate.update("kakaoRegister", mVO);
+			logger.info("카카오 로그인 호출 성공");
+		} catch (Exception e) {
+			logger.info("Exception : " + e.toString());
+		}
+		return mVO;
+	}
+	
+	// 카카오 로그인 시 중복체크
+	public MemberVO kakaoCheck(String member_email) {
+		MemberVO mVO = sqlSessionTemplate.selectOne("kakaoCheck", member_email);
+		logger.info("카카오 로그인 호출 성공");
+		return mVO;
+
+	}
+
 	// 회원가입시 2000원 지급
 	public int registerPoint(PointVO pVO) {
 		int result = 0;
@@ -40,6 +57,7 @@ public class MemberDao {
 		}
 		return result;
 	}
+
 	// 추천인 코드 입력시 2000원 지급
 	public int recommendPoint(PointVO pVO) {
 		int result = 0;
@@ -52,7 +70,7 @@ public class MemberDao {
 		}
 		return result;
 	}
-	
+
 	// 추천받은 회원 찾기
 	public MemberVO recommendMem(String member_code) {
 		logger.info("추천회원찾기 호출 성공");
@@ -64,7 +82,7 @@ public class MemberDao {
 		logger.info("memberLogin 호출 성공");
 		return sqlSessionTemplate.selectOne("memberLogin", mVO);
 	}
-	
+
 	// 회원정보 수정
 	public int memberModify(MemberVO mVO) {
 		int result = 0;
@@ -77,6 +95,7 @@ public class MemberDao {
 		}
 		return result;
 	}
+
 	// 회원번호 채번
 	public int getMNo() {
 		logger.info("getMNo 호출 성공");
@@ -89,29 +108,33 @@ public class MemberDao {
 		}
 		return result;
 	}
+
 	// 이메일 중복체크
-	public int emailChk(MemberVO mVO) {
+	public int emailChk(String member_email) {
 		logger.info("이메일 중복체크 호출 성공");
 		int result = 0;
 		try {
-			result = sqlSessionTemplate.selectOne("emailChk", mVO);
+			result = sqlSessionTemplate.selectOne("emailChk", member_email);
 			logger.info(result + "");
 		} catch (Exception e) {
 			logger.info("Exception : " + e.toString());
 		}
 		return result;
 	}
+
 	// 이메일 찾기
 	public MemberVO findEmail(MemberVO mVO) {
 		logger.info("이메일 찾기 호출 성공");
 		return sqlSessionTemplate.selectOne("findEmail", mVO);
 	}
+
 	// 비밀번호 찾기
 	public int findPassword(MemberVO mVO) {
 		logger.info("비밀번호 찾기 호출 성공");
 		int result = sqlSessionTemplate.selectOne("findPassword", mVO);
 		return result;
 	}
+
 	// 비밀번호 수정
 	public int updatePass(MemberVO mVO) {
 		int result = 0;
@@ -124,16 +147,19 @@ public class MemberDao {
 		}
 		return result;
 	}
+
 	// 회원정보 보기
 	public MemberVO memInfo(MemberVO mVO) {
 		logger.info("회원 정보 보기 호출 성공");
 		return sqlSessionTemplate.selectOne("viewMember", mVO);
 	}
+
 	// 비밀번호 확인
 	public MemberVO passChk(MemberVO mVO) {
 		logger.info("비밀번호 확인 호출 성공");
 		return sqlSessionTemplate.selectOne("chkPass", mVO);
 	}
+
 	// 회원 탈퇴
 	public int delMember(MemberVO mVO) {
 		int result = 0;
@@ -146,6 +172,5 @@ public class MemberDao {
 		}
 		return result;
 	}
-
 
 }
