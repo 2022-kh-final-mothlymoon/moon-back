@@ -9,9 +9,10 @@
 		                        member_level, member_password, member_name, member_phone,
 		                        member_birth, member_zipcode, member_email, member_date
 		                        ,member_address_detail, member_code, member_recommend )
-				VALUES ( #{member_no},#{member_address},'이메일'
-						,0,#{member_password},#{member_name},#{member_phone}
-						,#{member_birth},#{member_zipcode},#{member_email}
+				VALUES ( #{member_no},#{member_address, jdbcType=VARCHAR},'이메일'
+						,0,#{member_password},#{member_name},#{member_phone, jdbcType=VARCHAR}
+						,#{member_birth, jdbcType=VARCHAR},#{member_zipcode, jdbcType=VARCHAR}
+						,#{member_email}
 						,TO_CHAR(SYSDATE, 'YYYY-MM-DD')
 						,#{member_address_detail, jdbcType=VARCHAR}
 						, #{member_code}, #{member_recommend, jdbcType=VARCHAR})
@@ -23,6 +24,17 @@
 		                        member_level, member_name, member_email, member_date
 		                        , member_code )
 				VALUES ( #{member_no},'카카오톡'
+						,0,#{member_name} ,#{member_email}
+						,TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+						, #{member_code})
+	</insert>
+	
+	<!-- 네이버 로그인 -->
+	<insert id="naverRegister" parameterType="kh.sellermoon.member.vo.MemberVO">
+		INSERT INTO TB_MEMBER( member_no, member_method,
+		                        member_level, member_name, member_email, member_date
+		                        , member_code )
+				VALUES ( #{member_no},'네이버'
 						,0,#{member_name} ,#{member_email}
 						,TO_CHAR(SYSDATE, 'YYYY-MM-DD')
 						, #{member_code})
@@ -91,10 +103,17 @@
 	</select>
 	
 	<!-- 비밀번호 업데이트 -->
-	<update id="updatePass" parameterType="kh.sellermoon.member.vo.MemberVO">
+	<update id="updatePass" parameterType="kh.sellermoon.member.vo.MemberVO" >
 		UPDATE TB_MEMBER
 		SET member_password =#{member_password}
 		WHERE member_no =#{member_no}
+	</update>
+	
+	<!-- 비밀번호 업데이트(임시비밀번호 발급용) -->
+	<update id="updateTemp" parameterType="kh.sellermoon.member.vo.MemberVO" >
+		UPDATE TB_MEMBER
+		SET member_password =#{member_password}
+		WHERE member_email =#{member_email}
 	</update>
 	
 	<!-- 회원 정보 보기 -->
@@ -122,7 +141,7 @@
 		    ,member_phone =#{member_phone}
 		    ,member_zipcode =#{member_zipcode}
 		    ,member_email =#{member_email}
-		    ,member_address_detail =#{member_address_detail}
+		    ,member_address_detail =#{member_address_detail, jdbcType=VARCHAR}
 		WHERE member_no =#{member_no}
 	</update>
 	

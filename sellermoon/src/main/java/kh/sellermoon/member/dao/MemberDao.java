@@ -38,10 +38,21 @@ public class MemberDao {
 		return mVO;
 	}
 	
-	// 카카오 로그인 시 중복체크
+	// 네이버 로그인
+	public MemberVO naverRegister(MemberVO mVO) {
+		try {
+			sqlSessionTemplate.update("naverRegister", mVO);
+			logger.info("네이버 로그인 호출 성공");
+		} catch (Exception e) {
+			logger.info("Exception : " + e.toString());
+		}
+		return mVO;
+	}
+	
+	// 카카오/네이버 로그인 시 중복체크
 	public MemberVO kakaoCheck(String member_email) {
 		MemberVO mVO = sqlSessionTemplate.selectOne("kakaoCheck", member_email);
-		logger.info("카카오 로그인 호출 성공");
+		logger.info("카카오/네이버 로그인 호출 성공");
 		return mVO;
 
 	}
@@ -141,6 +152,18 @@ public class MemberDao {
 		try {
 			result = sqlSessionTemplate.update("updatePass", mVO);
 			logger.info("비밀번호 수정 호출 성공");
+			logger.info("result : " + result);
+		} catch (Exception e) {
+			logger.info("Exception : " + e.toString());
+		}
+		return result;
+	}
+	
+	public int updateTemp(MemberVO mVO) {
+		int result = 0;
+		try {
+			result = sqlSessionTemplate.update("updateTemp", mVO);
+			logger.info("임시비밀번호 수정 호출 성공");
 			logger.info("result : " + result);
 		} catch (Exception e) {
 			logger.info("Exception : " + e.toString());

@@ -1,6 +1,8 @@
 package kh.sellermoon.member.controller;
 
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -15,10 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 
+import kh.sellermoon.member.dao.MemberDao;
 import kh.sellermoon.member.logic.KaKaoLoginLogic;
 import kh.sellermoon.member.logic.MemberLogic;
 import kh.sellermoon.member.vo.MailVO;
 import kh.sellermoon.member.vo.MemberVO;
+import kh.sellermoon.member.vo.PointVO;
 
 @RestController
 //@RequestMapping("/monthlymoon")
@@ -26,6 +30,8 @@ public class RestMemberController {
 	Logger logger = LoggerFactory.getLogger(RestMemberController.class);
 	@Autowired
 	private MemberLogic memberLogic = null;
+	@Autowired
+	private MemberDao memberDao = null;
 	@Autowired
 	private KaKaoLoginLogic kakaoLogic = null;
 	
@@ -62,6 +68,34 @@ public class RestMemberController {
 		}
 	}
 	
+	// 네이버 로그인
+	@PostMapping("naverlogin")
+	public String naverLogin(@RequestParam("member_email") String member_email, @RequestParam("member_name") String member_name ) {
+		logger.info(member_email);
+		logger.info(member_name);
+		logger.info("네이버 로그인 호출 성공");
+		String temp1 = null;
+		String temp2 = null;
+		Gson g = new Gson();
+		MemberVO mVO = new MemberVO();
+		PointVO pVO = new PointVO(); // 네이버 로그인해도 포인트 주기
+		mVO.setMember_email(member_email);
+		mVO.setMember_name(member_name);
+		MemberVO naverChk = memberDao.kakaoCheck(member_email);
+		if(naverChk == null) {
+			MemberVO naver = memberLogic.naverResister(mVO);
+			// 처음 네이버 로그인시 회원가입 point 지급
+			pVO.setMember_no(naver.getMember_no());
+			memberDao.registerPoint(pVO);
+			temp1 = g.toJson(naver);
+			return temp1;
+		} else {
+			temp2 = g.toJson(naverChk);
+			return temp2;
+		}
+	}
+
+	
 	@PostMapping("emailcheck")
 	public String emailChk(String member_email) {
 		logger.info("이메일 중복체크 호출 성공");
@@ -94,11 +128,11 @@ public class RestMemberController {
 	@PostMapping("sendmail")
 	public String sendMail(MemberVO mVO, MailVO mailVO) {
 		logger.info("임시 비밀번호 발급 호출 성공");
-		int result = 0;
 		String temp = null;
-		result = memberLogic.tempPass(mVO, mailVO);
+		int result = memberLogic.tempPass(mVO, mailVO);
 		Gson g = new Gson();
 		temp = g.toJson(result);
+		logger.info(temp);
 		return temp;
 		
 	}

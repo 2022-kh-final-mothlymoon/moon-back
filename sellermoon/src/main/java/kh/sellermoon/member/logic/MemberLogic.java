@@ -48,20 +48,20 @@ public class MemberLogic {
 			// 추천인 코드 입력하면 point insert
 			MemberVO rM = memberDao.recommendMem(mVO.getMember_recommend());
 			logger.info("MemberVO rM===> " + rM);
-			if(mVO.getMember_recommend() != null) {
+			if (rM != null) {
 				// 신규회원에게 추천인 적립금
 				int result3 = memberDao.recommendPoint(pVO);
 				// 추천코드 쓰여진 기존회원에게 적립금
 				pVO.setMember_no(rM.getMember_no());
 				int result4 = memberDao.recommendPoint(pVO);
-				logger.info("result3 =====> "+result3);
-				logger.info("result4 =====> "+result4);
+				logger.info("result3 =====> " + result3);
+				logger.info("result4 =====> " + result4);
 			}
 			return result2;
 		}
 		return result;
 	}
-	
+
 	// 로그인
 	public MemberVO memberLogin(MemberVO mVO) {
 		logger.info("memberLogin 호출 성공");
@@ -75,7 +75,7 @@ public class MemberLogic {
 			return mVO;
 		}
 	}
-	
+
 	// 회원 정보 수정
 	public int memberModify(MemberVO mVO) {
 		logger.info("회원정보수정 호출 성공");
@@ -83,7 +83,7 @@ public class MemberLogic {
 		result = memberDao.memberModify(mVO);
 		return result;
 	}
-	
+
 	// 비밀번호 수정
 	public int updatePass(MemberVO mVO) {
 		logger.info("비밀번호 수정 호출 성공");
@@ -135,7 +135,7 @@ public class MemberLogic {
 			mVO.setMember_password(tempPass);
 			logger.info(tempPass);
 			// 비밀번호 변경
-			int result = memberDao.updatePass(mVO);
+			int result = memberDao.updateTemp(mVO);
 			// 변경 후 메일 발송
 			sendEmail(mVO, mailVO);
 			// 랜덤 비밀번호 암호화해서 DB저장
@@ -143,8 +143,9 @@ public class MemberLogic {
 				String encodedPassword = passwordEncoder.encode(mVO.getMember_password());
 				mVO.setMember_password(encodedPassword);
 				logger.info(encodedPassword);
-				int result2 = memberDao.updatePass(mVO);
+				int result2 = memberDao.updateTemp(mVO);
 			}
+			logger.info("result = "+result);
 			return result;
 		}
 	}
@@ -158,8 +159,7 @@ public class MemberLogic {
 		mailVO.setAddress(mVO.getMember_email());
 		logger.info(mailVO.getAddress());
 		mailVO.setTitle("Sellermoon 임시 비밀번호 안내 메일입니다.");
-		mailVO.setMessage("안녕하세요. Sellermoon 임시 비밀번호 관련 안내 메일입니다. " 
-				+ mVO.getMember_name() + " 님의 임시비밀번호는 "
+		mailVO.setMessage("안녕하세요. Sellermoon 임시 비밀번호 관련 안내 메일입니다. " + mVO.getMember_name() + " 님의 임시비밀번호는 "
 				+ mVO.getMember_password() + " 입니다. " + "로그인 후 비밀번호를 변경해주세요.");
 
 		// 메일 보내기
@@ -179,7 +179,7 @@ public class MemberLogic {
 		logger.info("회원 정보 보기 호출 성공");
 		return memberDao.memInfo(mVO);
 	}
-	
+
 	// 회원정보 수정 전 비밀번호 확인
 	public MemberVO passChk(MemberVO mVO) {
 		logger.info("비밀번호 확인 호출 성공");
@@ -192,12 +192,24 @@ public class MemberLogic {
 			return mVO;
 		}
 	}
+
 	// 회원 탈퇴
 	public int delMember(MemberVO mVO) {
 		logger.info("회원탈퇴 호출 성공");
 		int result = 0;
 		result = memberDao.delMember(mVO);
 		return result;
+	}
+
+	// 네이버 로그인
+	public MemberVO naverResister(MemberVO mVO) {
+		
+		logger.info("네이버 로그인 호출 성공");
+		int member_no = memberDao.getMNo();
+		String member_code = getTempPassword();
+		mVO.setMember_no(member_no);
+		mVO.setMember_code(member_code);
+		return memberDao.naverRegister(mVO);
 	}
 
 }
