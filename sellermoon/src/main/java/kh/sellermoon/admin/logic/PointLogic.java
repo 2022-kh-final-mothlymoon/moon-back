@@ -45,5 +45,6 @@ public class PointLogic {
 		return result;
 	}
 
+
 	
 }

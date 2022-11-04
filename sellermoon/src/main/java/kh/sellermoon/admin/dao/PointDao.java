@@ -56,4 +56,5 @@ public class PointDao {
 	    result = sqlSessionTemplate.update("pointInsert",pMap);
 		return result;
 	}
+
 }
