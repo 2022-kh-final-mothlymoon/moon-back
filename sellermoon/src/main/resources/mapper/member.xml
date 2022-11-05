@@ -136,10 +136,10 @@
 	<!-- 회원 정보 수정 -->
 	<update id="memberModify" parameterType="kh.sellermoon.member.vo.MemberVO" >
 		UPDATE tb_member
-		SET member_address =#{member_address}
+		SET member_address =#{member_address, jdbcType=VARCHAR}
 		    ,member_name =#{member_name}
-		    ,member_phone =#{member_phone}
-		    ,member_zipcode =#{member_zipcode}
+		    ,member_phone =#{member_phone, jdbcType=VARCHAR}
+		    ,member_zipcode =#{member_zipcode, jdbcType=VARCHAR}
 		    ,member_email =#{member_email}
 		    ,member_address_detail =#{member_address_detail, jdbcType=VARCHAR}
 		WHERE member_no =#{member_no}
