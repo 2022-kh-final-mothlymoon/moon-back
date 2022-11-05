@@ -57,4 +57,13 @@ public class PointDao {
 		return result;
 	}
 
+
+	public Map<String, Object> myPoint(Map<String, Object> pMap) {
+		logger.info(pMap.get("member_no"));
+		Map<String, Object> myPoint = null;
+		myPoint = sqlSessionTemplate.selectOne("myPoint",pMap);
+	      logger.info("pMap : "+pMap);
+	      return myPoint;
+	}
+
 }

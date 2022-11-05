@@ -45,6 +45,12 @@ public class PointLogic {
 		return result;
 	}
 
+	public Map<String, Object> myPoint(Map<String, Object> pMap) {
+		logger.info("myPoint 호출 성공");
+		Map<String, Object> myPoint = null;
+		myPoint = pointDao.myPoint(pMap);
+		return myPoint;
+	}
 
 	
 }

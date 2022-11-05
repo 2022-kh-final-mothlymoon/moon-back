@@ -40,6 +40,21 @@ public class RestPointController {
       return temp;
    }
 	
+	@GetMapping("mypoint")
+	public String myPoint(Model model, @RequestParam Map<String, Object> pMap) {
+		logger.info("myPoint 호출 성공");
+		
+		Map<String, Object> myPoint = null;
+		myPoint = pointLogic.myPoint(pMap);
+		logger.info(myPoint);
+		String temp = null;
+		Gson g = new Gson();
+		temp = g.toJson(myPoint);
+		return temp;
+	}
+	
+	
+	
 	@ResponseBody
 	@PostMapping("pointinsert")
 	public String pointInsert(@RequestBody Map<String, Object> pMap) {
