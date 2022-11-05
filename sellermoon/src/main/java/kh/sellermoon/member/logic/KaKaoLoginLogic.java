@@ -8,6 +8,8 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +17,14 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import kh.sellermoon.member.controller.RestMemberController;
 import kh.sellermoon.member.dao.MemberDao;
 import kh.sellermoon.member.vo.MemberVO;
 import kh.sellermoon.member.vo.PointVO;
 
 @Service
 public class KaKaoLoginLogic {
+	Logger logger = LoggerFactory.getLogger(KaKaoLoginLogic.class);
 	@Autowired
 	private MemberDao memberDao = null;
 	@Autowired
@@ -136,6 +140,7 @@ public class KaKaoLoginLogic {
 		}
 		MemberVO kakaoVO = memberDao.kakaoRegister(mVO);
 		// 처음 카카오 로그인시 회원가입 point 지급
+		logger.info("kakaoVO no ====> "+kakaoVO.getMember_no());
 		pVO.setMember_no(kakaoVO.getMember_no());
 		memberDao.registerPoint(pVO);
 		return kakaoVO;
