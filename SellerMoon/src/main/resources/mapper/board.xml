@@ -53,8 +53,8 @@
 	<!-- 커뮤니티 글 작성 -->
 	<insert id="boardMInsert" parameterType="map">
 		INSERT INTO tb_community 
-            		(board_no, member_no, board_title, board_content, board_written_date, board_category)
-     		 VALUES (board_no_seq.NEXTVAL, #{member_no}, #{board_title}, #{board_content}, to_char(sysdate, 'YYYY-MM-DD'), #{board_category})
+            		(board_no, member_no, board_title, board_content, board_written_date, board_category, filename, fileurl)
+     		 VALUES (board_no_seq.NEXTVAL, #{member_no}, #{board_title}, #{board_content}, to_char(sysdate, 'YYYY-MM-DD'), #{board_category}, #{filename}, #{fileurl})
 	</insert>
 	
 	<!-- 커뮤니티 글 수정 -->
@@ -63,8 +63,25 @@
 		   SET board_category = #{board_category}
 		   	  ,board_title = #{board_title}
 		   	  ,board_content = #{board_content}
+		   	  ,filename = ${filname}
+		   	  ,fileurl = ${fileurl}
 		 WHERE board_no = #{board_no}
 	</update>
+	
+	<!-- 조회수 채번하기 -->
+	<update	id="boardHit" parameterType="map">
+		UPDATE tb_community
+		   SET board_hit = board_hit + 1
+		 WHERE board_no = #{board_no}
+	</update>
+	
+	<!-- 좋아요 버튼 눌렀을 떄 -->
+	
+	<!-- 좋아요 버튼 취소했을 때 -->
+	
+	<!-- 싫어요 버튼 눌렀을 때 -->
+	
+	<!-- 싫어요 버튼 취소했을 때 = -->
 	
 	<!-- [[[[[[[[[[[[[[[[[[[[[[ 회원 쿼리 종료 ]]]]]]]]]]]]]]]]]]]]]] -->
 	

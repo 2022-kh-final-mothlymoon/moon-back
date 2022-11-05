@@ -83,11 +83,11 @@ public class MemberBoardDao {
 		return result;
 	}
 
-	// [[[[[[[[[[ 회원 게시글 조회수 (제목 클릭 시 채번) ]]]]]]]]]]
+	// [[[[[[[[[[ 회원 게시글 조회수 (글 번호 디테일 페이지 이동시 채번) ]]]]]]]]]]
 	public int board_hit(Map<String, Object> pMap) {
 		int result = 0;
 		try {
-			result = sqlSessionTemplate.update("board_hit", pMap);
+			result = sqlSessionTemplate.update("boardHit", pMap);
 			logger.info("result : " + result);
 		} catch (Exception e) {
 			logger.info("Exception : " + e.toString());
