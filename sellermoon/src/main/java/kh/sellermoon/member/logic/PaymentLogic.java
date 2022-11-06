@@ -13,7 +13,7 @@ import kh.sellermoon.member.dao.PaymentDao;
 
 @Service
 public class PaymentLogic {
-	Logger logger = LogManager.getLogger(AmdLogic.class);
+	Logger logger = LogManager.getLogger(PaymentLogic.class);
 	@Autowired
 private PaymentDao paymentDao =null;
 	public int paymentInsert(Map<String, Object> pMap) {
