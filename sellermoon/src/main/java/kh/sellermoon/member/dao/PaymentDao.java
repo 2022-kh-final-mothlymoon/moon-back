@@ -1,5 +1,6 @@
 package kh.sellermoon.member.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
@@ -21,4 +22,37 @@ public class PaymentDao {
 		logger.info("pMap : " + pMap);
 		return result;
 	}
+	// 개별구매
+		public List<Map<String, Object>> paymentList(Map<String, Object> pMap) {
+			logger.info(pMap.get("member_no"));
+			List<Map<String, Object>> paymentList = null;
+			paymentList = sqlSessionTemplate.selectList("paymentList",pMap);
+		    logger.info("pMap : "+pMap);
+		      return paymentList;
+		}
+		
+		// 정기구독
+		public List<Map<String, Object>> spaymentList(Map<String, Object> pMap) {
+			logger.info(pMap.get("member_no"));
+			List<Map<String, Object>> spaymentList = null;
+			spaymentList = sqlSessionTemplate.selectList("spaymentList",pMap);
+		    logger.info("pMap : "+pMap);
+		      return spaymentList;
+		}
+
+		public Map<String, Object> payTotal(Map<String, Object> pMap) {
+			logger.info(pMap.get("member_no"));
+			Map<String, Object> payTotal = null;
+			payTotal = sqlSessionTemplate.selectOne("payTotal",pMap);
+		      logger.info("pMap : "+pMap);
+		      return payTotal;
+		}
+
+		public Map<String, Object> spayTotal(Map<String, Object> pMap) {
+			logger.info(pMap.get("member_no"));
+			Map<String, Object> spayTotal = null;
+			spayTotal = sqlSessionTemplate.selectOne("spayTotal",pMap);
+		      logger.info("pMap : "+pMap);
+		      return spayTotal;
+		}
 }

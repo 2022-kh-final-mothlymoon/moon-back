@@ -1,5 +1,6 @@
 package kh.sellermoon.member.logic;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
@@ -22,4 +23,33 @@ private PaymentDao paymentDao =null;
 		result = paymentDao.paymentInsert(pMap);
 		return result;
 	}
+	// 개별구매
+		public List<Map<String, Object>> paymentList(Map<String, Object> pMap) {
+			logger.info("paymentList 호출 성공");
+			List<Map<String, Object>> paymentList = null;
+			paymentList = paymentDao.paymentList(pMap);
+			return paymentList;
+		}
+		
+		// 정기구독
+		public List<Map<String, Object>> spaymentList(Map<String, Object> pMap) {
+			logger.info("spaymentList 호출 성공");
+			List<Map<String, Object>> spaymentList = null;
+			spaymentList = paymentDao.spaymentList(pMap);
+			return spaymentList;
+		}
+
+		public Map<String, Object> payTotal(Map<String, Object> pMap) {
+			logger.info("payTotal 호출 성공");
+			Map<String, Object> payTotal = null;
+			payTotal = paymentDao.payTotal(pMap);
+			return payTotal;
+		}
+
+		public Map<String, Object> spayTotal(Map<String, Object> pMap) {
+			logger.info("spayTotal 호출 성공");
+			Map<String, Object> spayTotal = null;
+			spayTotal = paymentDao.spayTotal(pMap);
+			return spayTotal;
+		}
 }
