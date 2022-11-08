@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mybatis.mapper.cartMapper">
 
-	<resultMap type="kh.sellermoon.member.vo.CartVO" id="cartMap">
+	<!-- <resultMap type="kh.sellermoon.member.vo.CartVO" id="cartMap">
 		<id property="cartNo" column="cart_no"/>
 		<result property="memberNo"     column="member_no"/>
 		<result property="mdNo"         column="md_no"/>
@@ -27,6 +27,6 @@
 	<select id="getCart" resultType="String">
 		select cart_no as cartNo from tb_cart where cart_no = 1
 	</select>
-
+ -->
 
 </mapper>

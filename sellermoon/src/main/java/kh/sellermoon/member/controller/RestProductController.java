@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import kh.sellermoon.admin.logic.AmdLogic;
 import kh.sellermoon.member.logic.CartLogic;
 import kh.sellermoon.member.logic.ProductLogic;
 import kh.sellermoon.member.vo.MdVO;
@@ -37,12 +38,21 @@ public class RestProductController {
 	private ProductLogic productLogic;
 	
 	@GetMapping("list")
-	public ResponseEntity<?> getAllProducts() {
+	public ResponseEntity<?> getAllProducts(@RequestParam(required = false, defaultValue="2") int page,
+			@RequestParam(required = false, defaultValue="누적판매순") String sort,
+			@RequestParam(required = false, defaultValue="전체") String category) {
 		String resultJsopStr = "";
 		try {
-			List<MdVO> list = productLogic.getProducts();
-			logger.info("p :" + list);
+			Map<String, Object> map = new HashMap<>();
+			map.put("page", page);
+			map.put("sort", sort);
+			if(!category.trim().equals("전체")) {
+				map.put("category", category); // 전체가 아닐경우 where절 조건에 추가
+			}
 			
+			logger.info("MAP "+ map);
+			
+			List<MdVO> list = productLogic.getProducts(map);
 			Gson g = new Gson();
 			resultJsopStr =  g.toJson(list);
 			

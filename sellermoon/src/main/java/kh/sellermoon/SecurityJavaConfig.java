@@ -28,7 +28,7 @@ public class SecurityJavaConfig {
 			.formLogin().disable()
 			.headers().frameOptions().disable()
 			.and()
-			.authorizeRequests().antMatchers(HttpMethod.OPTIONS).permitAll()
+			.authorizeRequests().antMatchers(HttpMethod.OPTIONS,HttpMethod.PUT.name(),HttpMethod.DELETE.name()).permitAll()
 			.antMatchers("/**").permitAll()
 			.anyRequest().authenticated();
 

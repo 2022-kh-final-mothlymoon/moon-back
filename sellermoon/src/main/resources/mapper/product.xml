@@ -18,8 +18,12 @@
 		<result property="stAmout"    column="ST_AMOUNT"/>
 	</resultMap> 
 
-	<select id="getAllProducts" resultMap="mdMap">
+	<select id="getAllProducts" resultMap="mdMap" parameterType="java.util.Map">
 		select * from tb_md
+		where 1 = 1
+		<if test="category != null">
+			and md_category = #{category}
+		</if>
 	</select>
 	
 	

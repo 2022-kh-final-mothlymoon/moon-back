@@ -2,23 +2,67 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kh.mybatis.mapper.pcartMapper">
 
-	<resultMap type="kh.sellermoon.member.vo.CartVO" id="cartMap">
+ 	<resultMap type="kh.sellermoon.member.vo.CartVO" id="cartMap">
 		<id property="cartNo" column="cart_no"/>
 		<result property="memberNo"     column="member_no"/>
 		<result property="mdNo"         column="md_no"/>
 		<result property="cartQuantity" column="cart_quantity"/>
 		<result property="orderType"    column="order_type"/>
-	</resultMap> 
+		<association property="mdVO" javaType="kh.sellermoon.member.vo.MdVO">
+	        <id property="mdNo" column="md_no"/>
+	        <result property="mdPrice" column="md_price"/>
+	        <result property="mdImageUrl" column="md_Image_Url"/>
+	        <result property="mdDiscount" column="md_Discount"/>
+	        <result property="mdDcPrice" column="dcprice"/>
+	        <result property="mdName" column="md_name"/>
+   		</association>
+	</resultMap>  
 
-	<select id="getAllPCartList" resultType="kh.sellermoon.member.vo.CartVO" parameterType="int">
-		select 'cart' as order_type from tb_cart
+	<select id="getAllPCartListVO" resultMap="cartMap" parameterType="java.util.Map">
+		select 
+			c.cart_no, c.member_no, c.cart_quantity, c.order_type, 
+			m.md_no, m.md_Image_Url, m.md_discount, m.md_price, m.md_name,
+			(md_price -  (md_price* md_discount * 0.01)) dcprice
+		from 
+			tb_cart c
+			join tb_md m on C.MD_NO = m.MD_NO
+		where 
+			c.member_no = #{no}
+		<if test="orderType != null">
+			and c.order_type = #{orderType}
+		</if>	
 	</select>
-
-	<select id="getPCart" resultType="String">
-		select cart_no as cartNo from tb_cart where cart_no = 1
-	</select>
-
-
 	
+	<select id="existMdInCart" resultType="java.util.Map" parameterType="java.util.Map">
+		select 
+			c.cart_quantity cartQuantity, c.cart_no cartNo
+		from 
+			tb_cart  c  
+			join tb_md m on C.MD_NO = m.MD_NO 
+		where 
+			c.member_no = #{memberNo} and m.md_no = #{mdNo} and c.order_type = #{orderType}
+	</select>
+	
+	<insert id="insertCart" parameterType="java.util.Map">
+		insert into tb_cart (cart_no,member_no,md_no,cart_quantity,order_type)
+		values (CART_SEQ.nextval , #{memberNo}, #{mdNo} ,#{cartQuantity}, #{orderType})
+	</insert>
+	
+	<update id="updateCart" parameterType="java.util.Map">
+		update 
+			tb_cart 
+		set 
+			cart_quantity = #{quantity}	
+		where 
+			cart_no = #{cartNo}
+			and member_no = #{memberNo}
+	</update>
 
+	<delete id="deleteCart" parameterType="java.util.Map">
+		delete from 
+			tb_cart 
+		where 
+			cart_no = #{cartNo}
+			and member_no = #{memberNo} 
+	</delete>
 </mapper>
