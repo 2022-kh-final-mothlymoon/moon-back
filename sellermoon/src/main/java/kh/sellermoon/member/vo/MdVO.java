@@ -18,6 +18,7 @@ public class MdVO {
 	private String mdImageUrl;
 	private String mdDetailImageUrl;
 	private int stAmout;
+	private int mdDcPrice;
 	
 	public int getMdNo() {
 		return mdNo;
@@ -98,13 +99,18 @@ public class MdVO {
 	public void setStAmout(int stAmout) {
 		this.stAmout = stAmout;
 	}
+	public int getMdDcPrice() {
+		return mdDcPrice;
+	}
+	public void setMdDcPrice(int mdDcPrice) {
+		this.mdDcPrice = mdDcPrice;
+	}
 	@Override
 	public String toString() {
 		return "MdVO [mdNo=" + mdNo + ", mdContent=" + mdContent + ", mdPrice=" + mdPrice + ", mdCategory=" + mdCategory
 				+ ", mdImage=" + mdImage + ", mdDetailImage=" + mdDetailImage + ", mdDiscount=" + mdDiscount
 				+ ", mdCost=" + mdCost + ", mdBrand=" + mdBrand + ", mdName=" + mdName + ", mdImageUrl=" + mdImageUrl
-				+ ", mdDetailImageUrl=" + mdDetailImageUrl + ", stAmout=" + stAmout + "]";
+				+ ", mdDetailImageUrl=" + mdDetailImageUrl + ", stAmout=" + stAmout + ", mdDcPrice=" + mdDcPrice + "]";
 	}
-	
 	
 }

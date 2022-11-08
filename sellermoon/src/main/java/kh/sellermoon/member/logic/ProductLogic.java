@@ -20,9 +20,9 @@ public class ProductLogic {
 	@Autowired
 	private ProductDao productDao;
 	
-	public List<MdVO> getProducts() throws Exception {
+	public List<MdVO> getProducts(Map<String, Object> map) throws Exception {
 		
-		List<MdVO> products = productDao.getProducts();
+		List<MdVO> products = productDao.getProducts(map);
 		
 		return products;
 	}

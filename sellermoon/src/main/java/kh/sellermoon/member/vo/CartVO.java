@@ -2,7 +2,6 @@ package kh.sellermoon.member.vo;
 
 import lombok.Data;
 
-
 public class CartVO {
 
 	private String cartNo;
@@ -10,6 +9,7 @@ public class CartVO {
 	private int    mdNo;    
 	private int    cartQuantity;       
 	private String orderType;
+	private MdVO mdVO;
 	public String getCartNo() {
 		return cartNo;
 	}
@@ -40,9 +40,18 @@ public class CartVO {
 	public void setOrderType(String orderType) {
 		this.orderType = orderType;
 	}
+	public MdVO getMdVO() {
+		return mdVO;
+	}
+	public void setMdVO(MdVO mdVO) {
+		this.mdVO = mdVO;
+	}
 	@Override
 	public String toString() {
 		return "CartVO [cartNo=" + cartNo + ", memberNo=" + memberNo + ", mdNo=" + mdNo + ", cartQuantity="
-				+ cartQuantity + ", orderType=" + orderType + "]";
-	}       
+				+ cartQuantity + ", orderType=" + orderType + ", mdVO=" + mdVO + "]";
+	}
+	
+	
+	
 }
