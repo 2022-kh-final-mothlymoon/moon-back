@@ -37,20 +37,20 @@ public class MemberReplyDao {
 		logger.info("member : pMap => " + pMap);
 		int result = 0;
 		try {
-			result = sqlSessionTemplate.selectOne("replyMInsert", pMap);
+			result = sqlSessionTemplate.update("replyMInsert", pMap);
 			logger.info("result : " + result);
 		} catch (DataAccessException e) {
 			logger.info("Exception : " + e.toString());
 		}
 		return result;
-		}
+	}
 
 	// [[[[[[[[[[ 회원 댓글 수정 ]]]]]]]]]]
 	public int replyUpdate(Map<String, Object> pMap) {
 		logger.info("member : pMap => " + pMap);
 		int result = 0;
 		try {
-			result = sqlSessionTemplate.insert("replyMUpdate", pMap);
+			result = sqlSessionTemplate.update("replyMUpdate", pMap);
 			logger.info("result : " + result);
 		} catch (DataAccessException e) {
 			logger.info("Exception : " + e.toString());

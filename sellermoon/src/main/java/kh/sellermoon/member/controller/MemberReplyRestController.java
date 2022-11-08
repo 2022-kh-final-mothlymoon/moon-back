@@ -27,6 +27,7 @@ public class MemberReplyRestController {
 	@GetMapping("jsonReplyList")
 	public String replyList(@RequestParam Map<String, Object> pMap) {
 		logger.info("member : jsonReplyList 호출 성공");
+		System.out.println(pMap);
 		List<Map<String, Object>> replyList = null;
 		replyList = replyLogic.replyList(pMap);
 		String gReplyList = null;
