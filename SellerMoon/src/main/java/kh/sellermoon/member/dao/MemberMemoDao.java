@@ -29,40 +29,13 @@ public class MemberMemoDao {
 		return cnt;
 	}
 	
-	// [[[[[[[[[[ 회원 받은 쪽지함 ]]]]]]]]]]
-	public List<Map<String, Object>> receiveMemoList(Map<String, Object> pMap) {
-		logger.info("member : receiveMemoList 호출 성공 ==> " + pMap);
-		List<Map<String, Object>> receiveMemoList = null;
-		receiveMemoList = sqlSessionTemplate.selectList("receiveMemoList", pMap);
-		logger.info(receiveMemoList.toString());
-		return receiveMemoList;
-	}
-	
-	// [[[[[[[[[[ 회원 보낸 쪽지함 ]]]]]]]]]]
-	public List<Map<String, Object>> sendMemoList(Map<String, Object> pMap) {
-		logger.info("member : sendMemoList 호출 성공 ==> " + pMap);
-		List<Map<String, Object>> receiveMemoList = null;
-		receiveMemoList = sqlSessionTemplate.selectList("receiveMMemoList", pMap);
-		logger.info(receiveMemoList.toString());
-		return receiveMemoList;
-	}
-	
-	// [[[[[[[[[[ 회원 받은 쪽지 상세 ]]]]]]]]]]
-	public Map<String, Object> receiveMemoDetail(Map<String, Object> pMap) {
-		logger.info("member : receiveMemoDetail 호출 성공 ==> " + pMap);
-		Map<String, Object> rMap = null;
-		rMap = sqlSessionTemplate.selectOne("receiveMemoDetail", pMap);
-		logger.info(rMap.toString());
-		return rMap;
-	}
-	
-	// [[[[[[[[[[ 회원 보낸 쪽지 상세 ]]]]]]]]]]
-	public Map<String, Object> sendMemoDetail(Map<String, Object> pMap) {
-		logger.info("member : sendMemoDetail 호출 성공 ==> " + pMap);
-		Map<String, Object> rMap = null;
-		rMap = sqlSessionTemplate.selectOne("sendMMemoDetail", pMap);
-		logger.info(rMap.toString());
-		return rMap;
+	// [[[[[[[[[[[ 전체 쪽지 조회 ]]]]]]]]]]]
+	public List<Map<String, Object>> memoList(Map<String, Object> pMap) {
+		logger.info("member : memoList 호출 성공 ==> " + pMap);
+		List<Map<String, Object>> memoList = null;
+		memoList = sqlSessionTemplate.selectList("memoList", pMap);
+		logger.info(memoList.toString());
+		return memoList;
 	}
 	
 	// [[[[[[[[[[ 회원 받은 쪽지 클릭 시 읽음 여부 갱신 ]]]]]]]]]]
@@ -83,25 +56,12 @@ public class MemberMemoDao {
 		return result;
 	}
 
-	// [[[[[[[[[[ 회원 받은 쪽지 삭제 ]]]]]]]]]]
-	public int receiveMemoDelete(Map<String, Object> pMap) {
-		logger.info("member : receiveMemoDelete 호출 성공 ==> " + pMap);
+	// [[[[[[[[[[ 회원 받은/보낸 쪽지 삭제 ]]]]]]]]]]
+	public int memoDelete(Map<String, Object> pMap) {
+		logger.info("member : memoDelete 호출 성공 ==> " + pMap);
 		int result = 0;
 		try {
-			result = sqlSessionTemplate.delete("receiveMemoDelete", pMap);
-			logger.info("result : " + result);
-		} catch (Exception e) {
-			logger.info("Exception : " + e.toString());
-		}
-		return result;
-	}
-	
-	// [[[[[[[[[[ 회원 보낸 쪽지 삭제 ]]]]]]]]]]
-	public int sendMemoDelete(Map<String, Object> pMap) {
-		logger.info("member : receiveMemoDelete 호출 성공 ==> " + pMap);
-		int result = 0;
-		try {
-			result = sqlSessionTemplate.delete("sendMemoDelete", pMap);
+			result = sqlSessionTemplate.delete("memoDelete", pMap);
 			logger.info("result : " + result);
 		} catch (Exception e) {
 			logger.info("Exception : " + e.toString());

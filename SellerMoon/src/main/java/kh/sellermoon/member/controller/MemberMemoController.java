@@ -20,9 +20,9 @@ import kh.sellermoon.member.logic.MemberMemoLogic;
 public class MemberMemoController {
 	Logger logger = LoggerFactory.getLogger(MemberMemoController.class);
 	
-	// 회원 받은 쪽지함
-	final String sendMemoList = "redirect:http://localhost:3000/member/memo/receiveMemoList";
 	// 회원 보낸 쪽지함
+	final String sendMemoList = "redirect:http://localhost:3000/member/memo/receiveMemoList";
+	// 회원 받은 쪽지함 (main)
 	final String receiveMemoList = "redirect:http://localhost:3000/member/memo/sendMemoList";
 
 	@Autowired(required = false)
@@ -34,25 +34,15 @@ public class MemberMemoController {
 		logger.info("member : memoInsert 호출 성공");
 		int result = 0;
 		result = memoLogic.memoInsert(pMap);
-		return receiveMemoList; // 쪽지 보내고 보낸 쪽지함으로 이동
+		return sendMemoList; // 쪽지 보내고 보낸 쪽지함으로 이동
 	}
 	
 	// [[[[[[[[[[ 회원 보낸 쪽지 삭제 ]]]]]]]]]]
-	@GetMapping("sendMemoDelete")
+	@GetMapping("memoDelete")
 	public String sendMemoDelete(@RequestParam Map<String, Object> pMap) {
-		logger.info("member : sendMemoDelete 호출 성공");
+		logger.info("member : memoDelete 호출 성공");
 		int result = 0;
-		result = memoLogic.sendMemoDelete(pMap);
-		return receiveMemoList; // 보낸 쪽지 삭제 후 보낸 쪽지함으로 이동
-	}
-	
-	// [[[[[[[[[[ 회원 받은 쪽지 삭제 ]]]]]]]]]]
-	@GetMapping("receiveMemoDelete")
-	public String receiveMemoDelete(@RequestParam Map<String, Object> pMap) {
-		logger.info("member : receiveMemoDelete 호출 성공");
-		int result = 0;
-		result = memoLogic.receiveMemoDelete(pMap);
-		return sendMemoList; // 받은 쪽지 삭제 후 받은 쪽지함으로 이동
-	}
-	
+		result = memoLogic.memoDelete(pMap);
+		return sendMemoList; // 보낸 쪽지 삭제 후 보낸 쪽지함으로 이동
+	}	
 }
