@@ -55,4 +55,22 @@ public class PaymentDao {
 		      logger.info("pMap : "+pMap);
 		      return spayTotal;
 		}
+		public int payPointUpdate(Map<String, Object> pMap) {
+			logger.info("payPointUpdate 호출 성공");
+			int result = 0;
+		    try {
+		    	result = sqlSessionTemplate.update("payPointUpdate",pMap);
+		    	logger.info("result : "+result);
+			} catch (Exception e) {
+				logger.info("Exception : "+e.toString());
+			}
+			return result;
+		}
+		public int spaymentInsert(Map<String, Object> pMap) {
+			logger.info("spaymentInsert DAO 호출 성공");
+			int result = 0;
+			result = sqlSessionTemplate.update("spaymentInsert", pMap);
+			logger.info("pMap : " + pMap);
+			return result;
+		}
 }

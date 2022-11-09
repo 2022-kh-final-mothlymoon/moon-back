@@ -32,4 +32,28 @@ public class OrderDetailDao {
 		logger.info("pMap : " + pMap);
 		return orderDetailList2;
 	}
+
+	public int deliUpdate(Map<String, Object> pMap) {
+		logger.info("deliUpdate 호출 성공");
+		int result = 0;
+	    try {
+	    	result = sqlSessionTemplate.update("deliUpdate",pMap);
+	    	logger.info("result : "+result);
+		} catch (Exception e) {
+			logger.info("Exception : "+e.toString());
+		}
+		return result;
+	}
+
+	public int cancelUpdate(Map<String, Object> pMap) {
+		logger.info("cancelUpdate 호출 성공");
+		int result = 0;
+	    try {
+	    	result = sqlSessionTemplate.update("cancelUpdate",pMap);
+	    	logger.info("result : "+result);
+		} catch (Exception e) {
+			logger.info("Exception : "+e.toString());
+		}
+		return result;
+	}
 }

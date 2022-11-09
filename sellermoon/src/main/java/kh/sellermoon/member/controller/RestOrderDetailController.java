@@ -50,4 +50,18 @@ Logger logger = LoggerFactory.getLogger(RestOrderDetailController.class);
 		 temp = g.toJson(orderdetailList2);
 		 return temp;
 	 }
+	 @PostMapping("deliUpdate")
+		public String deliUpdate(@RequestBody Map<String,Object> pMap) {
+			logger.info("pointUpdate 호출 성공");
+			int result = 0;
+			result = orderdetailLogic.deliUpdate(pMap);
+			return String.valueOf(result);
+		}
+	 @PostMapping("cancelUpdate")
+		public String cancelUpdate(@RequestBody Map<String,Object> pMap) {
+			logger.info("cancelUpdate 호출 성공");
+			int result = 0;
+			result = orderdetailLogic.cancelUpdate(pMap);
+			return String.valueOf(result);
+		}
 	   }

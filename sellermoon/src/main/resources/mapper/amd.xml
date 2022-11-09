@@ -43,7 +43,7 @@
         FROM TB_MD 
 		<where>
 			<if test="MD_NO>0">
-				AND TB_AMD.MD_NO = #{MD_NO}
+				AND TB_MD.MD_NO = #{MD_NO}
 			</if>
 		</where>
 	</select>

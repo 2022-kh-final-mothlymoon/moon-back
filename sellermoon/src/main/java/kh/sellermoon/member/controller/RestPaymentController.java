@@ -26,7 +26,7 @@ public class RestPaymentController {
 	
 	@Autowired
 	private PaymentLogic paymentLogic = null;
-	
+	//결제정보 넘기기
 	@ResponseBody
 	@PostMapping("paymentInsert")
 	public String RestpaymentInsert(@RequestBody Map<String, Object> pMap) {
@@ -36,6 +36,15 @@ public class RestPaymentController {
 		result = paymentLogic.paymentInsert(pMap);
 		logger.info(result+"");
 	   return ""+result; // 문자열 붙이면 String 타입으로 형전환
+	}   
+	@PostMapping("spaymentInsert")
+	public String RestspaymentInsert(@RequestBody Map<String, Object> pMap) {
+		logger.info("RestspaymentInsert 호출 성공");
+		logger.info("pMap");
+		int result = 0;
+		result = paymentLogic.spaymentInsert(pMap);
+		logger.info(result+"");
+		return ""+result; // 문자열 붙이면 String 타입으로 형전환
 	}   
 	// 개별구매
 		@GetMapping("paymentlist")
@@ -89,6 +98,13 @@ public class RestPaymentController {
 			Gson g = new Gson();
 			temp = g.toJson(spayTotal);
 			return temp;
+		}
+		@PostMapping("payPointUpdate")
+		public String payPointUpdate(@RequestBody Map<String,Object> pMap) {
+			logger.info("payPointUpdate 호출 성공");
+			int result = 0;
+			result = paymentLogic.payPointUpdate(pMap);
+			return String.valueOf(result);
 		}
 	
 }

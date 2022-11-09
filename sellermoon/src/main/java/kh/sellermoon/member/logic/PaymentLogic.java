@@ -52,4 +52,16 @@ private PaymentDao paymentDao =null;
 			spayTotal = paymentDao.spayTotal(pMap);
 			return spayTotal;
 		}
+		public int payPointUpdate(Map<String, Object> pMap) {
+			logger.info("payPointUpdate 호출 성공");
+			int result = 0;
+			result = paymentDao.payPointUpdate(pMap);
+			return result;
+		}
+		public int spaymentInsert(Map<String, Object> pMap) {
+			logger.info("spaymentInsert Logic 호출 성공");
+			int result = 0;
+			result = paymentDao.spaymentInsert(pMap);
+			return result;
+		}
 }

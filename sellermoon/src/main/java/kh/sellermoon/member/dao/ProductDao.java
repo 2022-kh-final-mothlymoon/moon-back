@@ -19,8 +19,8 @@ public class ProductDao {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 
-	public List<MdVO> getProducts() throws Exception {
-		return sqlSessionTemplate.selectList("getAllProducts");
+	public List<MdVO> getProducts(Map<String, Object> map) throws Exception {
+		return sqlSessionTemplate.selectList("getAllProducts", map);
 	}
 
 

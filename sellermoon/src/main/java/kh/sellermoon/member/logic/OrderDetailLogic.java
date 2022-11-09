@@ -29,5 +29,19 @@ private OrderDetailDao orderdetailDao =null;
 		orderDetailList2 = orderdetailDao.orderDetailList2(pMap);
 	      return orderDetailList2;
 	}
+
+	public int deliUpdate(Map<String, Object> pMap) {
+		logger.info("deliUpdate 호출 성공");
+		int result = 0;
+		result = orderdetailDao.deliUpdate(pMap);
+		return result;
+	}
+
+	public int cancelUpdate(Map<String, Object> pMap) {
+		logger.info("deliUpdate 호출 성공");
+		int result = 0;
+		result = orderdetailDao.cancelUpdate(pMap);
+		return result;
+	}
 	}
 

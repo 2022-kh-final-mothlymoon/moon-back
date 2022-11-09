@@ -144,6 +144,7 @@ public class MemberLogic {
 				mVO.setMember_password(encodedPassword);
 				logger.info(encodedPassword);
 				int result2 = memberDao.updateTemp(mVO);
+				logger.info("result2 = "+result2);
 			}
 			logger.info("result = "+result);
 			return result;
