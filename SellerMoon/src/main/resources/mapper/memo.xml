@@ -15,8 +15,8 @@
 	<!-- 쪽지 작성하기 -->
 	<insert id="memoInsert" parameterType="map">
 		INSERT INTO tb_msg
-					(msg_no, from_id, to_id, msg_content, msg_send_date, reay_yn)
-			 VALUES (msg_no_seq.nextval, #{from_id}, #{to_id}
+					(msg_no, member_no, from_id, to_id, msg_content, msg_send_date, reay_yn)
+			 VALUES (msg_no_seq.nextval, #{member_no}, #{from_id}, #{to_id}
 			        ,#{msg_content}, to_char(sysdate, 'YYYY-MM-DD'), 'N')
 	</insert>
 	
