@@ -31,32 +31,35 @@ import util.HashMapBinder;
 @RestController
 @RequestMapping("/admin/amd/*")
 public class RestAmdController {
-	 Logger logger = LogManager.getLogger(RestAmdController.class);
-	   
-	   @Autowired
-	   private AmdLogic amdLogic = null;
-	   
-	   @GetMapping("jsonAmdList")
-	   public String jsonAmdList(Model model, @RequestParam Map<String, Object> pMap) {
-	      logger.info("jsonAmdList 호출 성공");
-	      List<Map<String, Object>> amdList = null;
-	      amdList = amdLogic.amdList(pMap);
-	      logger.info(amdList);
-	      String temp = null;
-	      Gson g = new Gson();
-	      temp = g.toJson(amdList);
-	      return temp;
-	   }
-	   @GetMapping("jsonAmdDetail")
-	   public String jsonAmdDetail(Model model, @RequestParam Map<String, Object> pMap) {
-		   logger.info("jsonAmdDetail 호출 성공");
-		   List<Map<String, Object>> amdList = null;
-		   amdList = amdLogic.amdDetail(pMap);
-		   logger.info(amdList);
-		   String temp = null;
-		   Gson g = new Gson();
-		   temp = g.toJson(amdList);
-		   return temp;
-	   }
-	  
+	Logger logger = LogManager.getLogger(RestAmdController.class);
+
+	@Autowired
+	private AmdLogic amdLogic = null;
+
+	// amdList 불러오기용(다 건)
+	@GetMapping("jsonAmdList")
+	public String jsonAmdList(Model model, @RequestParam Map<String, Object> pMap) {
+		logger.info("jsonAmdList 호출 성공");
+		List<Map<String, Object>> amdList = null;
+		amdList = amdLogic.amdList(pMap);
+		logger.info(amdList);
+		String temp = null;
+		Gson g = new Gson();
+		temp = g.toJson(amdList);
+		return temp;
+	}
+
+	// amd 불러오기용(한 건)
+	@GetMapping("jsonAmdDetail")
+	public String jsonAmdDetail(Model model, @RequestParam Map<String, Object> pMap) {
+		logger.info("jsonAmdDetail 호출 성공");
+		List<Map<String, Object>> amdList = null;
+		amdList = amdLogic.amdDetail(pMap);
+		logger.info(amdList);
+		String temp = null;
+		Gson g = new Gson();
+		temp = g.toJson(amdList);
+		return temp;
+	}
+
 }

@@ -12,9 +12,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class AmdDao {
 	Logger logger = LogManager.getLogger(AmdDao.class);
+
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate = null;
 
+	// amdList 불러오기용(다 건)
 	public List<Map<String, Object>> amdList(Map<String, Object> pMap) {
 		logger.info("amdList DAO 호출 성공");
 		logger.info(pMap.get("MD_NO"));
@@ -24,6 +26,7 @@ public class AmdDao {
 		return amdList;
 	}
 
+	// amd 불러오기용(한 건)
 	public List<Map<String, Object>> amdDetail(Map<String, Object> pMap) {
 		logger.info("amdDetail DAO 호출 성공");
 		logger.info(pMap.get("MD_NO"));
@@ -33,6 +36,7 @@ public class AmdDao {
 		return amdList;
 	}
 
+	// amd 등록용(한 건)
 	public int amdInsert(Map<String, Object> pMap) {
 		logger.info("amdInsert DAO 호출 성공");
 		int result = 0;
@@ -41,6 +45,7 @@ public class AmdDao {
 		return result;
 	}
 
+	// amd 삭제용(한 건)
 	public int amdDelete(Map<String, Object> pMap) {
 		int result = 0;
 		try {
@@ -52,6 +57,7 @@ public class AmdDao {
 		return result;
 	}
 
+	// amd 수정용(한 건)
 	public int amdUpdate(Map<String, Object> pMap) {
 		logger.info("amdUpdate DAO 호출 성공");
 		logger.info(pMap.get("MD_NO"));

@@ -19,31 +19,34 @@ import kh.sellermoon.admin.logic.StoreLogic;
 @RestController
 @RequestMapping("/admin/store/*")
 public class RestStoreController {
-	 Logger logger = LogManager.getLogger(RestStoreController.class);
-	   
-	   @Autowired
-	   private StoreLogic storeLogic = null;
-	   
-	   @GetMapping("jsonStoreList")
-	   public String jsonStoreList(Model model, @RequestParam Map<String, Object> pMap) {
-	      logger.info("StoreList 호출 성공");
-	      List<Map<String, Object>> storeList = null;
-	      storeList = storeLogic.storeList(pMap);
-	      logger.info(storeList);
-	      String temp = null;
-	      Gson g = new Gson();
-	      temp = g.toJson(storeList);
-	      return temp;
-	   }
-	   @GetMapping("jsonStoreDetail")
-	   public String jsonStoreDetail(Model model, @RequestParam Map<String, Object> pMap) {
-		   logger.info("jsonStoreList 호출 성공");
-		   List<Map<String, Object>> storeList = null;
-		   storeList = storeLogic.storeDetail(pMap);
-		   logger.info(storeList);
-		   String temp = null;
-		   Gson g = new Gson();
-		   temp = g.toJson(storeList);
-		   return temp;
-	   }
+	Logger logger = LogManager.getLogger(RestStoreController.class);
+
+	@Autowired
+	private StoreLogic storeLogic = null;
+
+	// storeList 불러오기용(다 건)
+	@GetMapping("jsonStoreList")
+	public String jsonStoreList(Model model, @RequestParam Map<String, Object> pMap) {
+		logger.info("StoreList 호출 성공");
+		List<Map<String, Object>> storeList = null;
+		storeList = storeLogic.storeList(pMap);
+		logger.info(storeList);
+		String temp = null;
+		Gson g = new Gson();
+		temp = g.toJson(storeList);
+		return temp;
+	}
+
+	// storeList 불러오기용(한 건)
+	@GetMapping("jsonStoreDetail")
+	public String jsonStoreDetail(Model model, @RequestParam Map<String, Object> pMap) {
+		logger.info("jsonStoreList 호출 성공");
+		List<Map<String, Object>> storeList = null;
+		storeList = storeLogic.storeDetail(pMap);
+		logger.info(storeList);
+		String temp = null;
+		Gson g = new Gson();
+		temp = g.toJson(storeList);
+		return temp;
+	}
 }

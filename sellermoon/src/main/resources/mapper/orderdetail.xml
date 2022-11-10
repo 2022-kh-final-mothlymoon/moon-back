@@ -54,11 +54,16 @@
 			AND TB_ORDER.ORDER_NO = #{ORDER_NO}
 		</if>
 	</select>
+
+	<!-- 현황 취소로 배송정보 업데이트 -->
 	<update id="deliUpdate" parameterType="map">
 		update TB_DELIVERY
-		set DELIVERY_STATUS= '주문취소'
+		set
+		DELIVERY_STATUS= '주문취소'
 		WHERE ORDER_NO =#{ORDER_NO}
 	</update>
+
+	<!-- 현황 취소로 오더정보 업데이트 -->
 	<update id="cancelUpdate" parameterType="map">
 		update TB_ORDER_DE
 		set

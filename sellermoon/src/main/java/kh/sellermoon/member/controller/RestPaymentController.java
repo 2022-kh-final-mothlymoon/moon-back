@@ -26,7 +26,8 @@ public class RestPaymentController {
 	
 	@Autowired
 	private PaymentLogic paymentLogic = null;
-	//결제정보 넘기기
+	
+	//개별 결제정보 등록
 	@ResponseBody
 	@PostMapping("paymentInsert")
 	public String RestpaymentInsert(@RequestBody Map<String, Object> pMap) {
@@ -36,7 +37,9 @@ public class RestPaymentController {
 		result = paymentLogic.paymentInsert(pMap);
 		logger.info(result+"");
 	   return ""+result; // 문자열 붙이면 String 타입으로 형전환
-	}   
+	}
+	
+	//정기 결제정보 등록
 	@PostMapping("spaymentInsert")
 	public String RestspaymentInsert(@RequestBody Map<String, Object> pMap) {
 		logger.info("RestspaymentInsert 호출 성공");
@@ -46,11 +49,10 @@ public class RestPaymentController {
 		logger.info(result+"");
 		return ""+result; // 문자열 붙이면 String 타입으로 형전환
 	}   
-	// 개별구매
+	// 개별구매 List
 		@GetMapping("paymentlist")
 		public String paymentList(Model model, @RequestParam Map<String, Object> pMap) {
 	      logger.info("paymentList 호출 성공");
-	      
 	      List<Map<String, Object>> paymentList = null;
 	      paymentList = paymentLogic.paymentList(pMap);
 	      logger.info(paymentList);
@@ -60,11 +62,10 @@ public class RestPaymentController {
 	      return temp;
 	   }
 		
-		// 정기구독
+		// 정기구독 List
 		@GetMapping("spaymentlist")
 		public String spaymentList(Model model, @RequestParam Map<String, Object> pMap) {
 			logger.info("spaymentList 호출 성공");
-			
 			List<Map<String, Object>> spaymentList = null;
 			spaymentList = paymentLogic.spaymentList(pMap);
 			logger.info(spaymentList);
@@ -74,6 +75,7 @@ public class RestPaymentController {
 			return temp;
 		}
 		
+		// 개별구매 총금액
 		@GetMapping("paytotal")
 		public String payTotal(Model model, @RequestParam Map<String, Object> pMap) {
 			logger.info("payTotal 호출 성공");
@@ -87,6 +89,7 @@ public class RestPaymentController {
 			return temp;
 		}
 		
+		// 정기구독 총금액
 		@GetMapping("spaytotal")
 		public String spayTotal(Model model, @RequestParam Map<String, Object> pMap) {
 			logger.info("spaytotal 호출 성공");
@@ -99,6 +102,8 @@ public class RestPaymentController {
 			temp = g.toJson(spayTotal);
 			return temp;
 		}
+		
+		// 결제 후 포인트 업데이트
 		@PostMapping("payPointUpdate")
 		public String payPointUpdate(@RequestBody Map<String,Object> pMap) {
 			logger.info("payPointUpdate 호출 성공");

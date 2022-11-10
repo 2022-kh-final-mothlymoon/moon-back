@@ -25,10 +25,13 @@ import kh.sellermoon.admin.logic.StoreLogic;
 @RequestMapping("/admin/store/*")
 @SessionAttributes({ "admin_id", "admin_name", "admin_pw" })
 public class StoreController {
+
 	Logger logger = LogManager.getLogger(StoreController.class);
+
 	@Autowired
 	private StoreLogic storeLogic = null;
 
+	// 사용 안함, 이거 대신 json으로 사용, storeList 불러오기용(다 건)
 	@GetMapping("storeList")
 	public String storeList(Model model, @RequestParam Map<String, Object> pMap) {
 		logger.info("storeList 호출 성공");
@@ -40,7 +43,7 @@ public class StoreController {
 		return "store/storeList";
 	}
 
-	// @RequestMapping(value = "/detail")
+	// 사용 안함, 이거 대신 json으로 사용, storeList 불러오기용(한 건)
 	@GetMapping("storeDetail")
 	public String storeDetail(Model model, @RequestParam Map<String, Object> pMap) {
 		logger.info("storeDetail 호출 성공");
@@ -50,7 +53,7 @@ public class StoreController {
 		return "forward:detail.jsp";
 	}
 
-	//@ResponseBody
+	// store 등록용(한 건)
 	@GetMapping("storeInsert")
 	public String storeInsert(@RequestParam Map<String, Object> pMap) {
 		logger.info("storeInsert 호출 성공");
@@ -61,27 +64,28 @@ public class StoreController {
 		return "redirect:http://localhost:3000/admin/store";
 	}
 	
-
+	// 사용 안함, 이거 대신 storeUpdate으로 사용,store 수정용(한 건)
 	@GetMapping("read")
-	// @RequestMapping(value="/storeUpdate", method =RequestMethod.GET)
 	public Object read(Model model, @RequestParam Map<String, Object> pMap) {
 		logger.info("storeUpdate 호출 성공");
 		List<Map<String, Object>> storeList = null;
 		storeList = storeLogic.storeList(pMap);
 		model.addAttribute("storeList", storeList);
-	
+
 		return "forward:read.jsp";
 	}
+	
+	// store 수정용(한 건)
 	@GetMapping("storeUpdate")
-	//@RequestMapping(value="/storeUpdate", method = RequestMethod.GET)
 	public Object storeUpdate(@RequestParam Map<String, Object> pMap) {
 		logger.info("storeUpdate 호출 성공");
 		int result = 0;
 		result = storeLogic.storeUpdate(pMap);
 		logger.info(result);
 		final String redirectUrl = "redirect:http://localhost:3000/admin/store";
-	      return redirectUrl;
+		return redirectUrl;
 	}
+	// 사용 안함, 필요없음, store 삭제용(한 건)
 //	@GetMapping("storeDelete")
 //	public Object storeDelete(@RequestParam Map<String, Object> pMap) {
 //		logger.info("storeDelete 호출 성공");

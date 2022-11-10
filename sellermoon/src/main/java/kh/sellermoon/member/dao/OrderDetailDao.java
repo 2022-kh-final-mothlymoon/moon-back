@@ -33,6 +33,7 @@ public class OrderDetailDao {
 		return orderDetailList2;
 	}
 
+	// 현황 취소로 배송정보 업데이트
 	public int deliUpdate(Map<String, Object> pMap) {
 		logger.info("deliUpdate 호출 성공");
 		int result = 0;
@@ -45,6 +46,7 @@ public class OrderDetailDao {
 		return result;
 	}
 
+	// 현황 취소로 오더정보 업데이트
 	public int cancelUpdate(Map<String, Object> pMap) {
 		logger.info("cancelUpdate 호출 성공");
 		int result = 0;
