@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kh.mybatis.mapper.reportMapper">
+	<resultMap type="java.util.Map" id="reportMap"></resultMap>
+	
+	<!-- [[[[[[[[[[[[[[[[[[[[ 관리자 쿼리 시작 ]]]]]]]]]]]]]]]]]]]] -->
+	
+	<!-- 신고 내역 전체 조회 : jsonReportList 호출 -->
+	<select id="reportList" parameterType="java.util.Map" resultType="map">
+		SELECT report_no, member_name, board_no, reply_no, member_no2
+			  ,report_sort, report_reason, report_date
+		  FROM tb_report NATURAL JOIN tb_member
+		<where>
+			<!-- 상세보기 -->
+			<if test='report_no != null'>
+				AND report_no = #{report_no}
+			</if>
+		</where>
+	  ORDER By report_no DESC
+	</select>
+	
+	
+</mapper>
