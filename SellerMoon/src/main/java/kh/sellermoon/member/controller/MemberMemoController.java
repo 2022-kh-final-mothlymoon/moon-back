@@ -30,16 +30,25 @@ public class MemberMemoController {
 	
 	// [[[[[[[[[[ 회원 쪽지 보내기 ]]]]]]]]]]
 	@GetMapping("memoInsert")
-	public String sendMemoInsert(@RequestParam Map<String, Object> pMap) {
+	public String memoInsert(@RequestParam Map<String, Object> pMap) {
 		logger.info("member : memoInsert 호출 성공");
 		int result = 0;
 		result = memoLogic.memoInsert(pMap);
 		return sendMemoList; // 쪽지 보내고 보낸 쪽지함으로 이동
 	}
 	
-	// [[[[[[[[[[ 회원 보낸 쪽지 삭제 ]]]]]]]]]]
+	// [[[[[[[[[[ 회원 쪽지 읽음 여부 업데이트 ]]]]]]]]]]
+	@GetMapping("memoUpdate")
+	public String memoUpdate(@RequestParam Map<String, Object> pMap) {
+		logger.info("member : memoUpdate 호출 성공");
+		int result = 0;
+		result = memoLogic.memoUpdate(pMap);
+		return receiveMemoList;
+	}
+	
+	// [[[[[[[[[[ 회원 쪽지 삭제 ]]]]]]]]]]
 	@GetMapping("memoDelete")
-	public String sendMemoDelete(@RequestParam Map<String, Object> pMap) {
+	public String memoDelete(@RequestParam Map<String, Object> pMap) {
 		logger.info("member : memoDelete 호출 성공");
 		int result = 0;
 		result = memoLogic.memoDelete(pMap);

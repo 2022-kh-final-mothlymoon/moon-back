@@ -38,9 +38,35 @@ public class MemberMemoDao {
 		return memoList;
 	}
 	
+	// [[[[[[[[[[ 회원 받은 쪽지함 ]]]]]]]]]]
+	public List<Map<String, Object>> receiveMemoList(Map<String, Object> pMap) {
+		logger.info("member : receiveMemoList 호출 성공 ==> " + pMap);
+		List<Map<String, Object>> receiveMemoList = null;
+		receiveMemoList = sqlSessionTemplate.selectList("receiveMemoList", pMap);
+		logger.info(receiveMemoList.toString());
+		return receiveMemoList;
+	}
+	
+	// [[[[[[[[[[ 회원 보낸 쪽지함 ]]]]]]]]]]
+	public List<Map<String, Object>> sendMemoList(Map<String, Object> pMap) {
+		logger.info("member : sendMemoList 호출 성공 ==> " + pMap);
+		List<Map<String, Object>> receiveMemoList = null;
+		receiveMemoList = sqlSessionTemplate.selectList("sendMemoList", pMap);
+		logger.info(receiveMemoList.toString());
+		return receiveMemoList;
+	}
+	
 	// [[[[[[[[[[ 회원 받은 쪽지 클릭 시 읽음 여부 갱신 ]]]]]]]]]]
-	public void readYnUpdate(Map<String, Object> pMap) {
-		sqlSessionTemplate.update("readYnUpdate", pMap);
+	public int memoUpdate(Map<String, Object> pMap) {
+		logger.info("member : memoUpdate 호출 성공 ===> " + pMap);
+		int result = 0;
+		try {			
+			result = sqlSessionTemplate.update("memoUpdate", pMap);
+			logger.info("result : " + result);
+		} catch (DataAccessException e) {
+			logger.info("Exception : " + e.toString());
+		}
+		return result;
 	}
 	
 	// [[[[[[[[[[ 회원 쪽지 작성 ]]]]]]]]]]

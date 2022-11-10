@@ -15,13 +15,13 @@
 	<!-- 쪽지 작성하기 -->
 	<insert id="memoInsert" parameterType="map">
 		INSERT INTO tb_msg
-					(msg_no, member_no, from_id, to_id, msg_content, msg_send_date, reay_yn)
+					(msg_no, member_no, from_id, to_id, msg_content, msg_send_date, read_yn)
 			 VALUES (msg_no_seq.nextval, #{member_no}, #{from_id}, #{to_id}
 			        ,#{msg_content}, to_char(sysdate, 'YYYY-MM-DD'), 'N')
 	</insert>
 	
 	<!-- 읽음 상태 업데이트 -->
-	<update id="readYnUpdate" parameterType="map">
+	<update id="memoUpdate" parameterType="map">
 		UPDATE tb_msg
 		   SET read_yn = 'Y'
 		 WHERE msg_no = #{msg_no}
