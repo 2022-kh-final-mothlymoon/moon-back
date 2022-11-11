@@ -19,5 +19,27 @@
 	  ORDER By report_no DESC
 	</select>
 	
+	<!-- [[[[[[[[[[[[[[[[[[[[ 관리자 쿼리 종료 ]]]]]]]]]]]]]]]]]]]] -->
+	
+	
+	
+	<!-- [[[[[[[[[[[[[[[[[[[[ 회원 쿼리 시작 ]]]]]]]]]]]]]]]]]]]] -->
+
+	<!-- 게시글 신고 작성 -->
+	<insert id="reportBInsert" parameterType="map">
+		INSERT INTO tb_report
+	            (report_no, member_no, board_no, member_no2, report_sort, report_reason, report_date)
+	     VALUES (report_no_seq.nextval, #{member_no}, #{board_no}, #{member_no2}, #{report_sort}, #{report_reason}, sysdate)
+	</insert>
+	
+	<!-- 댓글 신고 작성 -->
+	<insert id="reportRInsert" parameterType="map">
+		INSERT INTO tb_report
+            	(report_no, member_no, board_no, reply_no, member_no2, report_date)
+     VALUES (report_no_seq.nextval, #{member_no}, #{board_no}, #{reply_no}, #{member_no2}, sysdate)
+		
+	</insert>
+	
+	<!-- [[[[[[[[[[[[[[[[[[[[ 회원 쿼리 종료 ]]]]]]]]]]]]]]]]]]]] -->
 	
 </mapper>
