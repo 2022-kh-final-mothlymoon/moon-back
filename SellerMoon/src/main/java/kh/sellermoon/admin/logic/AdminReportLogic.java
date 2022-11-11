@@ -21,19 +21,19 @@ public class AdminReportLogic {
 	@Autowired(required = false)
 	private AdminReportDao reportDao = null;
 
-	// [[[[[[[[[[ 관리자 신고 내역 전체 조회 ]]]]]]]]]]
-	public List<Map<String, Object>> reportList(Map<String, Object> pMap) {
-		logger.info("admin : replyList 호출 성공");
-		List<Map<String, Object>> reportList = null;
-		reportList = reportDao.reportList(pMap);
-		return reportList;
+	// [[[[[[[[[[ 관리자 게시글 신고 내역 전체 조회 ]]]]]]]]]]
+	public List<Map<String, Object>> reportBoardList(Map<String, Object> pMap) {
+		logger.info("admin : replyBoardList 호출 성공");
+		List<Map<String, Object>> reportBoardList = null;
+		reportBoardList = reportDao.reportBoardList(pMap);
+		return reportBoardList;
 	}
 	
-	// [[[[[[[[[[ 관리자 신고 내역 상세 조회 ]]]]]]]]]]
-	public Map<String, Object> reportDetail(Map<String, Object> pMap) {
-		logger.info("admin : reportDetail 호출 성공");
-		Map<String, Object> reportDetail = null;
-		reportDetail = reportDao.reportDetail(pMap);
-		return reportDetail;
+	// [[[[[[[[[[ 관리자 댓글 신고 내역 전체 조회 ]]]]]]]]]]
+	public List<Map<String, Object>> reportReplyList(Map<String, Object> pMap) {
+		logger.info("admin : reportReplyList 호출 성공");
+		List<Map<String, Object>> reportReplyList = null;
+		reportReplyList = reportDao.reportReplyList(pMap);
+		return reportReplyList;
 	}
 }
