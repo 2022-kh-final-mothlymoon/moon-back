@@ -75,4 +75,11 @@ public class ReviewLogic {
 		return reviewDao.modViewReview(rVO);
 	}
 
+	// 리뷰 등록 전 구매회원인지 확인
+	public int chkReviewOrder(Map<String, Object> pMap) {
+		logger.info("구매회원 확인 호출 성공");
+		int result = reviewDao.chkReviewOrder(pMap);
+		return result;
+	}
+
 }

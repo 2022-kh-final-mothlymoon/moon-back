@@ -111,5 +111,19 @@ public class ReviewDao {
 		return allR;
 	}
 	
+	// 리뷰 등록 전 구매회원인지 확인
+	public int chkReviewOrder(Map<String, Object> pMap) {
+		logger.info("구매회원 확인 호출 성공");
+		int result = 0;
+		try {
+			result = sqlSessionTemplate.selectOne("chkOrderR", pMap);
+			logger.info("result : " + result);
+			logger.info("pMap : " + pMap.toString());
+		} catch (Exception e) {
+			logger.info("Exception : " + e.toString());
+		}
+		return result;
+	}
+	
 
 }

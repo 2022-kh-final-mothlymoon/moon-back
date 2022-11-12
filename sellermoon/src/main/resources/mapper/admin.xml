@@ -19,7 +19,10 @@
 		ON tm.member_no=ts.member_no
 		<where>
 	  		<if test='member_no != null'>
-			 and tm.member_no = #{member_no}
+			 	AND tm.member_no = #{member_no}
+	  		</if>
+	  		<if test='member_level != null'>
+			 	AND member_level = #{member_level}
 	  		</if>
 			<if test='gubun!=null and gubun.equals("member_no")'>
 				AND tm.member_no = #{keyword}

@@ -9,7 +9,7 @@
 	<select id="boardList" parameterType="java.util.Map" resultType="map">
 		SELECT board_no, board_category
 			  ,DECODE(board_blind, 'Y', '블라인드 처리된 게시글입니다.', board_title) AS board_title
-			  ,board_content, member_name, board_written_date, board_hit
+			  ,board_content, member_name, member_no, board_written_date, board_hit
 			  ,board_like, board_dislike, board_report_count, board_blind
     	  FROM tb_community NATURAL JOIN tb_member
     	<where>

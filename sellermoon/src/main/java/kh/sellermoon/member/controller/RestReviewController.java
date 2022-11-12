@@ -23,6 +23,18 @@ public class RestReviewController {
 	@Autowired
 	private ReviewLogic reviewLogic = null;
 	
+	// 리뷰 등록 전 구매회원인지 확인
+	@PostMapping("chkrevieworder")
+	public String chkReviewOrder(@RequestParam Map<String, Object> pMap) {
+		logger.info("구매회원 확인 호출 성공");
+		int result = 0;
+		String temp = null;
+		result = reviewLogic.chkReviewOrder(pMap);
+		Gson g = new Gson();
+		temp = g.toJson(result);
+		return temp;
+	}
+	
 	// 리뷰 등록
 	@PostMapping("insertreview")
 	public String insertReview(ReviewVO rVO, PointVO pVO) {
