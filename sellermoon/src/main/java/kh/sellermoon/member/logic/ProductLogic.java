@@ -21,15 +21,11 @@ public class ProductLogic {
 	private ProductDao productDao;
 	
 	public List<MdVO> getProducts(Map<String, Object> map) throws Exception {
-		
 		List<MdVO> products = productDao.getProducts(map);
-		
 		return products;
 	}
-
 
 	public MdVO getProductByNo(int no) throws Exception {
 		return productDao.getProductByNo(no);
 	}
-
 }

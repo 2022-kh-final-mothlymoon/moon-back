@@ -40,4 +40,12 @@ public class PCartDao {
 	public void deleteCart(Map<String, Object> cartMap) throws Exception {
 		sqlSessionTemplate.delete("deleteCart", cartMap);
 	}
+
+	public String getOrderNumber() {
+		return sqlSessionTemplate.selectOne("getOrderNumber");
+	}
+
+	public void insertSubs(Map<String, Object> pMap) {
+		sqlSessionTemplate.insert("insertSubs", pMap);
+	}
 }

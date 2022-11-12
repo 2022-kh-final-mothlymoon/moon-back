@@ -1,5 +1,6 @@
 package kh.sellermoon.member.controller;
 
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,22 +40,27 @@ public class RestCartController {
 	private PCartLogic pCartLogic;
 
 	// 로그인한 유저의 모든 장바구니 목록 조회
-	@GetMapping({ "/", "" })
+	@PostMapping("/list")
 	public String getAllCartList(HttpServletRequest req, 
-			@RequestParam(required = false, defaultValue="O") String type) {
+			@RequestBody Map<String, Object> map) {
 		
 		String result = "";
 		try {
-			HttpSession session = req.getSession();
-			// 리액트 로그인 오류 해결 이후 해당 구문 주석 해제
-			// MemberVO member = (MemberVO)session.getAttribute("member");
-			// logger.info("member: " + member);
-			//int memberNo = member.getMember_no();
-			int memberNo = 1;
+//			HttpSession session = req.getSession();
+//			logger.info("session id : " + session.getId());
+//			
+//			Enumeration<String> attributes = req.getSession().getAttributeNames();
+//			while (attributes.hasMoreElements()) {
+//			    String attribute = (String) attributes.nextElement();
+//			    System.err.println("attr: " + attribute+" : "+req.getSession().getAttribute(attribute));
+//			}
+//			MemberVO member = (MemberVO)session.getAttribute("member");
+			//logger.info("member: " + member);
+//			int memberNo = member.getMember_no();
 			
-			Map<String, Object> map = new HashMap<>();
-			map.put("orderType", type);
-			map.put("no", memberNo);
+			//Map<String, Object> map = new HashMap<>();
+			//map.put("orderType", type);
+			//map.put("no", memberNo);
 			logger.info("map > "+ map);
 			List<CartVO> cartList = pCartLogic.getAllCartsVO(map);
 			Gson g = new Gson();
@@ -69,16 +75,15 @@ public class RestCartController {
 	}
 
 	@PostMapping({ "/", "" })
-	public String CartList(@RequestBody Map<String, Object> pMap) {
+	public String CartList(HttpServletRequest req, @RequestBody Map<String, Object> pMap) {
 		String result = "false";
 		try {
-			// 리액트 로그인 오류 해결 이후 해당 구문 주석 해제
-			// MemberVO member = (MemberVO)session.getAttribute("member");
-			// logger.info("member: " + member);
-			// int memberNo = member.getMember_no();
-			int memberNo = 1;
+			HttpSession session = req.getSession();
+			//MemberVO member = (MemberVO)session.getAttribute("member");
+			//logger.info("member: " + member);
+			//int memberNo = member.getMember_no();
 
-			pMap.put("memberNo", memberNo);
+			//pMap.put("memberNo", memberNo);
 			logger.info("jsonCartList 호출 성공" + pMap);
 			pCartLogic.insertCart(pMap);
 			result = "true";
@@ -93,16 +98,16 @@ public class RestCartController {
 	
 	// parameter cartNo, quantity
 	@PutMapping({ "/", "" })
-	public String updateCart(@RequestBody Map<String, Object> cartMap) {
+	public String updateCart(HttpServletRequest req, @RequestBody Map<String, Object> cartMap) {
 		String result = "false";
 		try {
-			// 리액트 로그인 오류 해결 이후 해당 구문 주석 해제
-			// MemberVO member = (MemberVO)session.getAttribute("member");
-			// logger.info("member: " + member);
-			// int memberNo = member.getMember_no();
-			int memberNo = 1;
+			HttpSession session = req.getSession();
+			//MemberVO member = (MemberVO)session.getAttribute("member");
+			//logger.info("member: " + member);
+			//int memberNo = member.getMember_no();
+			//int memberNo = 3;
 
-			cartMap.put("memberNo", memberNo);
+			//cartMap.put("memberNo", memberNo);
 			pCartLogic.updateCart(cartMap);
 			result = "true";
 
@@ -116,17 +121,41 @@ public class RestCartController {
 	
 	// parameter cartNo
 	@DeleteMapping({ "/", "" })
-	public String deleteCart(@RequestBody Map<String, Object> cartMap) {
+	public String deleteCart(HttpServletRequest req, @RequestBody Map<String, Object> cartMap) {
 		String result = "false";
 		try {
-			// 리액트 로그인 오류 해결 이후 해당 구문 주석 해제
-			// MemberVO member = (MemberVO)session.getAttribute("member");
-			// logger.info("member: " + member);
-			// int memberNo = member.getMember_no();
-			int memberNo = 1;
+			HttpSession session = req.getSession();
+			
+			//MemberVO member = (MemberVO)session.getAttribute("member");
+			//logger.info("member: " + member);
+			//int memberNo = member.getMember_no();
+			//int memberNo = 3;
 
-			cartMap.put("memberNo", memberNo);
+			//cartMap.put("memberNo", memberNo);
+			logger.info("cartMap: " + cartMap);
 			pCartLogic.deleteCart(cartMap);
+			result = "true";
+
+		} catch (Exception e) {
+			logger.error("error : " + e.getStackTrace());
+			logger.error("error msg : " + e.getMessage());
+		}
+
+		return result;
+	}
+	
+	@PostMapping("/order")
+	public String orderCart(HttpServletRequest req, @RequestBody Map<String, Object> pMap) {
+		String result = "false";
+		try {
+			HttpSession session = req.getSession();
+			//MemberVO member = (MemberVO)session.getAttribute("member");
+			//logger.info("member: " + member);
+			//int memberNo = member.getMember_no();
+
+			//pMap.put("memberNo", memberNo);
+			logger.info(pMap);
+			pCartLogic.orderCart(pMap);
 			result = "true";
 
 		} catch (Exception e) {
