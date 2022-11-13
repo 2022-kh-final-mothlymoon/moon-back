@@ -121,7 +121,7 @@
 		SELECT member_no,   member_zipcode, member_address, member_address_detail,
 		       member_method, DECODE(member_level,0,'초승달',1,'반달','보름달') member_level, member_password,
 		       member_name, member_phone, member_birth, member_email,
-		       member_date, member_method
+		       member_date, member_method, member_code
 		FROM   tb_member
 		WHERE  member_no =#{member_no}
 	</select>

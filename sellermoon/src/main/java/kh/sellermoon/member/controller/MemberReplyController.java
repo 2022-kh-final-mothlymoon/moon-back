@@ -23,7 +23,7 @@ public class MemberReplyController {
 	@Autowired(required = false)
 	private MemberReplyLogic replyLogic = null;
 	
-	final String boardList = "redirect:http://localhost:3000/member/board/boardList";
+	final String boardList = "redirect:http://localhost:3000/board/boardList";
 	
 	// [[[[[[[[[[ 회원 댓글 입력 (해당하는 상세 글에서 댓글 입력) ]]]]]]]]]]
 	@GetMapping("replyInsert")

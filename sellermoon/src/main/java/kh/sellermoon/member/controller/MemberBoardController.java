@@ -28,7 +28,7 @@ public class MemberBoardController {
 	@Autowired(required = false)
 	private MemberBoardLogic boardLogic = null;
 	
-	final String boardList = "redirect:http://localhost:3000/member/board/boardList";
+	final String boardList = "redirect:http://localhost:3000/board/boardList";
 	
 	// [[[[[[[[[[ 회원 게시글 입력 ]]]]]]]]]]
 	@GetMapping("boardInsert")

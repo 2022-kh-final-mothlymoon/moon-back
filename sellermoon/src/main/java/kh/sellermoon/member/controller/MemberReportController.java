@@ -23,7 +23,7 @@ public class MemberReportController {
 	@Autowired(required = false)
 	private MemberReportLogic reportLogic = null;
 	
-	final String boardList = "redirect:http://localhost:3000/member/board/boardList";
+	final String boardList = "redirect:http://localhost:3000/board/boardList";
 	
 	// [[[[[[[[[[ 회원 게시글 신고 입력 ]]]]]]]]]]
 	@GetMapping("reportBInsert")

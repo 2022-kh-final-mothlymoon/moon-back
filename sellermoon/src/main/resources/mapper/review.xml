@@ -105,8 +105,8 @@
 		 FROM tb_cart tc, tb_order tor, tb_md tmd, TB_MEMBER tm
 		WHERE tc.member_no = tor.member_no
 		  AND tmd.md_no = tc.md_no
-		  <![CDATA[AND TO_DATE(tor.order_date, 'YY-MM-DD HH:MI:SS') <=
-		      TO_DATE(tor.order_date, 'YY-MM-DD HH:MI:SS')+30]]>
+		  <![CDATA[AND TO_DATE(tor.order_date, 'YYYY/MM/DD HH24:MI:SS') <=
+		      TO_DATE(tor.order_date, 'YYYY/MM/DD HH24:MI:SS')+30]]>
 		  AND tm.member_no = tor.member_no
 		  AND tm.member_no = #{member_no}
 		  AND tmd.md_no = #{md_no}
