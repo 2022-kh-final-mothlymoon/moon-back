@@ -21,9 +21,9 @@ public class MemberMemoController {
 	Logger logger = LoggerFactory.getLogger(MemberMemoController.class);
 	
 	// 회원 보낸 쪽지함
-	final String sendMemoList = "redirect:http://localhost:3000/member/memo/sendMemoList";
+	final String sendMemoList = "redirect:http://localhost:3000/memo/sendMemoList";
 	// 회원 받은 쪽지함 (main)
-	final String receiveMemoList = "redirect:http://localhost:3000/member/memo/receiveMemoList";
+	final String receiveMemoList = "redirect:http://localhost:3000/memo/receiveMemoList";
 
 	@Autowired(required = false)
 	private MemberMemoLogic memoLogic = null;

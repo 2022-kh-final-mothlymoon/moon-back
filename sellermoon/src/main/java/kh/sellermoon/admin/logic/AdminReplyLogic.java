@@ -38,9 +38,9 @@ public class AdminReplyLogic {
 
 	// [[[[[[[[[[ 관리자 댓글 삭제 (한 건) ]]]]]]]]]]
 	public int replyDelete(Map<String, Object> pMap) {
-		logger.info("replyUpdate 호출 성공");
+		logger.info("replyDelete 호출 성공");
 		int result = 0;
-		result = replyDao.replyUpdate(pMap);
+		result = replyDao.replyDelete(pMap);
 		return result;
 	}
 

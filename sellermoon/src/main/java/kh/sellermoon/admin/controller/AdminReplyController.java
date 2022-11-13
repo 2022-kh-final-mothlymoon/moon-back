@@ -17,7 +17,7 @@ import kh.sellermoon.admin.logic.AdminReplyLogic;
 public class AdminReplyController {
 	Logger logger = LoggerFactory.getLogger(AdminReplyRestController.class);
 	
-	final String boardDetail= "redirect:http://localhost:3000/admin/board/boardDetail?board_no=";
+	final String boardList = "redirect:http://localhost:3000/admin/board/boardList";
 	
 	@Autowired(required = false)
 	private AdminReplyLogic replyLogic = null;
@@ -28,7 +28,7 @@ public class AdminReplyController {
 		logger.info("replyUpdate 호출 성공");
 		int result = 0;
 		result = replyLogic.replyUpdate(pMap);
-		return boardDetail;
+		return boardList;
 	}
 	
 	// [[[[[[[[[[ 관리자 댓글 삭제 (한 건) ]]]]]]]]]]
@@ -37,6 +37,6 @@ public class AdminReplyController {
 		logger.info("replyDelete 호출 성공");
 		int result = 0;
 		result = replyLogic.replyDelete(pMap);
-		return boardDetail;
+		return boardList;
 	}
 }

@@ -16,11 +16,11 @@
 		<where>
 			<!-- 상세보기 -->
 			<if test='board_no != null'>
-				AND board_no = ${board_no}
+				AND board_no = #{board_no}
 			</if>
 			<!-- 카테고리 별로 보기 -->
 			<if test='board_no != null and board_category != null'>
-				AND board_category = ${board_category}
+				AND board_category = #{board_category}
 			</if>
 		</where>
 		ORDER BY board_no DESC
@@ -67,8 +67,6 @@
 		SET board_category = #{board_category}
 		,board_title = #{board_title}
 		,board_content = #{board_content}
-		,filename = ${filname}
-		,fileurl = ${fileurl}
 		WHERE board_no = #{board_no}
 	</update>
 
